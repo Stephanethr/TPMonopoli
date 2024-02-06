@@ -15,4 +15,9 @@ public class Case {
     public void setPosition(int position) {
         this.position = position;
     }
+
+    // Méthode toString
+    public String toString() {
+        return "Case [position=" + position + "]";
+    }
 }
