@@ -33,9 +33,9 @@ public class Game {
 
         // Création du plateau
         ArrayList<Case> plateau = new ArrayList<Case>();
-        plateau.add(new Case(0, "Départ", "départ"));
+        plateau.add(new Case(0));
         while (plateau.size() < 40) {
-            plateau.add(new Case(plateau.size(), "Case " + plateau.size(), "normal"));
+            plateau.add(new Case(plateau.size()));
         }
 
         while (true) {
@@ -54,7 +54,7 @@ public class Game {
 
                 // Si le joueur fait un double, il rejoue
                 // To Do: gérer le cas où le joueur va en prison s'il fait 3 doubles de suite
-                while ((de1.getValue() == 6) && (de1.getValue() == de2.getValue())) {
+                while (de1.getValue() == de2.getValue()) {
                     System.out.println("Vous avez fait un double !");
                     System.out.println("Vous pouvez rejouer");
                     System.console().readLine();

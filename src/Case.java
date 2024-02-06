@@ -2,7 +2,7 @@ public class Case {
     private int position;    
     
     // Constructeur
-    public Case(int position, String nom, String type) {
+    public Case(int position) {
         this.position = position;
     }
     
