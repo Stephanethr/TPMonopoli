@@ -50,7 +50,8 @@ public class Game {
                 int deValue = de1.getValue() + de2.getValue();
                 System.out.println(joueur.getPseudo() + " a fait " + deValue);
                 joueur.deplacement(deValue);
-                System.out.println(joueur.getPseudo() + " est sur la case " + joueur.getPosition() + "\n");
+                Case caseCourante = plateau.get(joueur.getPosition());
+                System.out.println(joueur.getPseudo() + " est sur la case " + caseCourante + "\n");
 
                 // Si le joueur fait un double, il rejoue
                 // To Do: gérer le cas où le joueur va en prison s'il fait 3 doubles de suite
@@ -64,7 +65,8 @@ public class Game {
                     deValue = de1.getValue() + de2.getValue();
                     System.out.println(joueur.getPseudo() + " a fait " + deValue);
                     joueur.deplacement(deValue);
-                    System.out.println(joueur.getPseudo() + " est sur la case " + joueur.getPosition() + "\n");
+                    caseCourante = plateau.get(joueur.getPosition());
+                    System.out.println(joueur.getPseudo() + " est sur la case " + caseCourante + "\n");
                 }
             }
 
