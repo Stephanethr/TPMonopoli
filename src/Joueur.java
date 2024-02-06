@@ -2,7 +2,6 @@ public class Joueur {
     private String pseudo;
     private int position;
 
-    
     public Joueur(String pseudo) {
         this.pseudo = pseudo;
         this.position = 0;
@@ -21,6 +20,10 @@ public class Joueur {
     }
 
     public void deplacement(int deValue) {
-        this.position += deValue;
+        if (this.position + deValue >= 40) {
+            this.position = (this.position + deValue) - 40;
+        } else {
+            this.position += deValue;
+        }
     }
 }
