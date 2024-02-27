@@ -1,12 +1,15 @@
 public class Joueur {
+    // Attributs
     private String pseudo;
     private int position;
     private int nbTours;
+    private int argent;
 
     public Joueur(String pseudo) {
         this.pseudo = pseudo;
         this.position = 0;
         this.nbTours = 0;
+        this.argent = 1500;
     }
 
     // Méthodes pour accéder et modifier les attributs (getters/setters)
@@ -29,6 +32,22 @@ public class Joueur {
 
     public void setNbTours(int nbTours) {
         this.nbTours = nbTours;
+    }
+
+
+    public int getArgent() {
+        return argent;
+    }
+
+
+    public void setArgent(int argent) {
+        this.argent = argent;
+    }
+
+    // Méthode toString
+
+    public String toString() {
+        return "Joueur [pseudo=" + pseudo + ", position=" + position + ", nbTours=" + nbTours + ", argent=" + argent + "]";
     }
 
     // Autres méthodes
