@@ -1,9 +1,12 @@
+import java.util.List;
+
 public class Joueur {
     // Attributs
     private String pseudo;
     private int position;
     private int nbTours;
     private int argent;
+    private List<Case> listeProprietes; // Liste des propriétés possédées par le joueur
 
     public Joueur(String pseudo) {
         this.pseudo = pseudo;
@@ -34,20 +37,27 @@ public class Joueur {
         this.nbTours = nbTours;
     }
 
-
     public int getArgent() {
         return argent;
     }
-
 
     public void setArgent(int argent) {
         this.argent = argent;
     }
 
+    public List<Case> getProprietes() {
+        return listeProprietes;
+    }
+
+    public void setProprietes(List<Case> proprietes) {
+        this.listeProprietes = proprietes;
+    }
+
     // Méthode toString
 
     public String toString() {
-        return "Joueur [pseudo=" + pseudo + ", position=" + position + ", nbTours=" + nbTours + ", argent=" + argent + "]";
+        return "Joueur [pseudo=" + pseudo + ", position=" + position + ", nbTours=" + nbTours + ", argent=" + argent
+                + ", listeProprietes=" + listeProprietes + "]";
     }
 
     // Autres méthodes
