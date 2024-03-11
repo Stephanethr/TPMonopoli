@@ -17,8 +17,8 @@ public class IHM {
         System.out.println("Combien de joueurs ?");
         nbJoueurs = scanner.nextInt();
 
-        CtrlJeu ctrlJeu = new CtrlJeu(nbToursMax, nbJoueurs);
-        ctrlJeu.createGame();
+        CtrlJeu ctrlJeu = new CtrlJeu();
+        ctrlJeu.createGame(nbToursMax, nbJoueurs);
 
         while (ctrlJeu.getCompteurTours() - 1 < ctrlJeu.getNbTours()) {
             for (Joueur joueur : ctrlJeu.getListeJoueur()) {

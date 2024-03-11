@@ -2,15 +2,12 @@ import java.util.ArrayList;
 
 public class CtrlJeu {
     private Game game;
-    private int nbTours;
-    private int nbJoueurs;
 
-    public CtrlJeu(int nbTours, int nbJoueurs) {
-        this.nbTours = nbTours;
-        this.nbJoueurs = nbJoueurs;
+    public CtrlJeu() {
+  
     }
 
-    public void createGame() {
+    public void createGame(int nbTours, int nbJoueurs) {
         game = new Game(nbTours, nbJoueurs);
 
     }
