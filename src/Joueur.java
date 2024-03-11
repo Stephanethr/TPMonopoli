@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.ArrayList;
 
 public class Joueur {
     // Attributs
@@ -6,13 +6,14 @@ public class Joueur {
     private int position;
     private int nbTours;
     private int argent;
-    private List<Propriete> listeProprietes; // Liste des propriétés possédées par le joueur
+    private ArrayList<Case> listeProprietes; // Liste des propriétés possédées par le joueur
 
     public Joueur(String pseudo) {
         this.pseudo = pseudo;
         this.position = 0;
         this.nbTours = 0;
-        this.argent = 1500;
+        this.argent = 10000;
+        this.listeProprietes = new ArrayList<Case>();
     }
 
     // Méthodes pour accéder et modifier les attributs (getters/setters)
@@ -42,14 +43,18 @@ public class Joueur {
     }
 
     public void setArgent(int argent) {
-        // this.argent = argent;
+        this.argent = argent;
     }
 
-    public List<Propriete> getProprietes() {
+    public void gagnerArgent(int montant) {
+        this.argent += montant;
+    }
+
+    public ArrayList<Case> getProprietes() {
         return listeProprietes;
     }
 
-    public void setProprietes(List<Propriete> proprietes) {
+    public void setProprietes(ArrayList<Case> proprietes) {
         this.listeProprietes = proprietes;
     }
 
@@ -57,7 +62,7 @@ public class Joueur {
 
     public String toString() {
         return "Joueur [pseudo=" + pseudo + ", position=" + position + ", nbTours=" + nbTours + ", argent=" + argent
-                + ", listeProprietes=" + listeProprietes + "]";
+                +"]";
     }
 
     // Autres méthodes
@@ -69,4 +74,21 @@ public class Joueur {
             this.position += deValue;
         }
     }
+
+    public void acheterPropriete(CasePropriete propriete) {
+        if (this.argent >= propriete.getPrix()) {
+            this.argent -= propriete.getPrix();
+            this.listeProprietes.add(propriete);
+            propriete.setProprietaire(this);
+        }
+    }
+
+    public void payerLoyer(CasePropriete propriete) {
+        if (this.argent >= propriete.getLoyer()) {
+            this.argent -= propriete.getLoyer();
+            propriete.getProprietaire().gagnerArgent(propriete.getLoyer());
+        }
+
+    }
+
 }

@@ -32,9 +32,9 @@ public class Game {
 
     public void setPlateau() {
         this.plateau = new ArrayList<Case>();
-        plateau.add(new Propriete(0, 0));
+        this.plateau.add(new CaseSpeciale(0));
         while (plateau.size() < 40) {
-            plateau.add(new Propriete(plateau.size(), 200));
+            plateau.add(new CasePropriete(plateau.size()));
         }
     }
 
