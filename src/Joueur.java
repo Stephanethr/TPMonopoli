@@ -6,7 +6,7 @@ public class Joueur {
     private int position;
     private int nbTours;
     private int argent;
-    private List<Case> listeProprietes; // Liste des propriétés possédées par le joueur
+    private List<Propriete> listeProprietes; // Liste des propriétés possédées par le joueur
 
     public Joueur(String pseudo) {
         this.pseudo = pseudo;
@@ -42,14 +42,14 @@ public class Joueur {
     }
 
     public void setArgent(int argent) {
-        this.argent = argent;
+        // this.argent = argent;
     }
 
-    public List<Case> getProprietes() {
+    public List<Propriete> getProprietes() {
         return listeProprietes;
     }
 
-    public void setProprietes(List<Case> proprietes) {
+    public void setProprietes(List<Propriete> proprietes) {
         this.listeProprietes = proprietes;
     }
 

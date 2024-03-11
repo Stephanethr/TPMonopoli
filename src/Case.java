@@ -1,4 +1,4 @@
-public class Case {
+public abstract class Case {
     private int position;    
     
     // Constructeur

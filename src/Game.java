@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+
 /**
  * Game
  */
@@ -31,10 +32,9 @@ public class Game {
 
     public void setPlateau() {
         this.plateau = new ArrayList<Case>();
-        plateau.add(new Case(0));
-        while(plateau.size()<40)
-        {
-            plateau.add(new Case(plateau.size()));
+        plateau.add(new Propriete(0, 0));
+        while (plateau.size() < 40) {
+            plateau.add(new Propriete(plateau.size(), 200));
         }
     }
 
