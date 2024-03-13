@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-
 /**
  * Game
  */
@@ -21,7 +20,7 @@ public class Game {
     public void setListJoueurs(int nbJoueurs) {
         this.listeJoueur = new ArrayList<Joueur>();
         for (int i = 0; i < nbJoueurs; i++) {
-            Joueur joueur = new Joueur("joueur " + (i+1));
+            Joueur joueur = new Joueur("joueur " + (i + 1));
             listeJoueur.add(joueur);
         }
     }
@@ -32,10 +31,20 @@ public class Game {
 
     public void setPlateau() {
         this.plateau = new ArrayList<Case>();
-        this.plateau.add(new CaseSpeciale(0));
         while (plateau.size() < 40) {
-            plateau.add(new CasePropriete(plateau.size()));
+            plateau.add(new CasePropriete(plateau.size(), "Propriete"));
         }
+        // Cases départ
+        this.plateau.set(0, new CaseSpeciale(0, "Depart"));
+        // Cases Gare
+        this.plateau.set(5, new CasePropriete(5, "Gare", 250));
+        this.plateau.set(15, new CasePropriete(15, "Gare", 250));
+        this.plateau.set(25, new CasePropriete(25, "Gare", 250));
+        this.plateau.set(35, new CasePropriete(35, "Gare", 250));
+
+        // Cases compagnie
+        this.plateau.set(12, new CasePropriete(12, "Compagnie", 250));
+        this.plateau.set(28, new CasePropriete(28, "Compagnie", 250));
     }
 
     public int getNbTours() {
@@ -54,21 +63,17 @@ public class Game {
         this.compteurTours = compteurTours;
     }
 
-    public void createDes(){
+    public void createDes() {
         for (int i = 0; i < des.length; i++) {
             des[i] = new De();
         }
     }
 
-    public De[] getDes(){
+    public De[] getDes() {
         for (int i = 0; i < des.length; i++) {
             des[i].lancer();
         }
         return des;
     }
-
-
-
-    
 
 }

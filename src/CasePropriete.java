@@ -7,10 +7,23 @@ public class CasePropriete extends Case {
     private Joueur proprietaire;
     private static Random random = new Random();
 
-    public CasePropriete(int position) {
-        super(position);
-        this.prix = random.nextInt(1000) + 100;
+    public CasePropriete(int position, String type) {
+        super(position, type);
+        this.prix = random.nextInt(500) + 100;
         this.loyer = prix / 10;
+        this.proprietaire = null;
+    }
+    public CasePropriete(int position, String type, int prix) {
+        super(position, type);
+        this.prix = prix;
+        this.loyer = prix / 10;
+        this.proprietaire = null;
+    }
+
+    public CasePropriete(int position, String type, int prix, int loyer) {
+        super(position, type);
+        this.prix = prix;
+        this.loyer = loyer;
         this.proprietaire = null;
     }
 
@@ -22,6 +35,10 @@ public class CasePropriete extends Case {
         return loyer;
     }
 
+    public void setLoyer(int loyer) {
+        this.loyer = loyer;
+    }
+
     public Joueur getProprietaire() {
         return proprietaire;
     }
@@ -31,7 +48,7 @@ public class CasePropriete extends Case {
     }
 
     public String toString() {
-        return "Propriete [position=" + getPosition() + ", prix=" + getPrix() + ", loyer=" + getLoyer() +", proprietaire=" + getProprietaire() + "]";
+        return "Propriete position=" + getPosition() + ",type="+ getType() + " prix=" + getPrix() + ", loyer=" + getLoyer() +", proprietaire=" + getProprietaire() +"\n";
     }
     
 }

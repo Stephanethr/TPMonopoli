@@ -1,5 +1,5 @@
 public class CaseSpeciale extends Case{
-    public CaseSpeciale(int position) {
-        super(position);
+    public CaseSpeciale(int position, String type) {
+        super(position, type);
     }
 }

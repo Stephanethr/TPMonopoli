@@ -1,9 +1,11 @@
 public abstract class Case {
-    private int position;    
+    private int position;
+    private String type;    
     
     // Constructeur
-    public Case(int position) {
+    public Case(int position, String type) {
         this.position = position;
+        this.type = type;
     }
     
     // Méthodes pour accéder et modifier les attributs (getters/setters)
@@ -16,8 +18,12 @@ public abstract class Case {
         this.position = position;
     }
 
+    public String getType() {
+        return type;
+    }
+
     // Méthode toString
     public String toString() {
-        return "Case [position=" + position + "]";
+        return "Case position=" + position + ", type=" + type + "\n";
     }
 }

@@ -6,14 +6,14 @@ public class Joueur {
     private int position;
     private int nbTours;
     private int argent;
-    private ArrayList<Case> listeProprietes; // Liste des propriétés possédées par le joueur
+    private ArrayList<CasePropriete> listeProprietes; // Liste des propriétés possédées par le joueur
 
     public Joueur(String pseudo) {
         this.pseudo = pseudo;
         this.position = 0;
         this.nbTours = 0;
         this.argent = 10000;
-        this.listeProprietes = new ArrayList<Case>();
+        this.listeProprietes = new ArrayList<CasePropriete>();
     }
 
     // Méthodes pour accéder et modifier les attributs (getters/setters)
@@ -50,11 +50,11 @@ public class Joueur {
         this.argent += montant;
     }
 
-    public ArrayList<Case> getProprietes() {
+    public ArrayList<CasePropriete> getProprietes() {
         return listeProprietes;
     }
 
-    public void setProprietes(ArrayList<Case> proprietes) {
+    public void setProprietes(ArrayList<CasePropriete> proprietes) {
         this.listeProprietes = proprietes;
     }
 
@@ -62,7 +62,7 @@ public class Joueur {
 
     public String toString() {
         return "Joueur [pseudo=" + pseudo + ", position=" + position + ", nbTours=" + nbTours + ", argent=" + argent
-                +"]";
+                + "]";
     }
 
     // Autres méthodes
@@ -83,10 +83,34 @@ public class Joueur {
         }
     }
 
-    public void payerLoyer(CasePropriete propriete) {
+    public void payerLoyer(CasePropriete propriete, int totalDe) {
+        if (propriete.getType() == "Gare" || propriete.getType() == "Compagnie") {
+            calculLoyer(totalDe);
+        }
         if (this.argent >= propriete.getLoyer()) {
             this.argent -= propriete.getLoyer();
             propriete.getProprietaire().gagnerArgent(propriete.getLoyer());
+        }
+    }
+
+    public void calculLoyer(int totalDe) {
+
+        for (int i = 0; i < listeProprietes.size(); i++) {
+            int multiplicateurGare = 0;
+            int countCompagnie = 0;
+            if (listeProprietes.get(i).getType() == "Gare") {
+                multiplicateurGare++;
+                listeProprietes.get(i).setLoyer(25 * multiplicateurGare);
+            }
+            if (listeProprietes.get(i).getType() == "Compagnie") {
+                countCompagnie++;
+                if (countCompagnie == 1) {
+                    listeProprietes.get(i).setLoyer(4*totalDe);
+                }
+                if (countCompagnie == 2) {
+                    listeProprietes.get(i).setLoyer(10*totalDe);
+                }
+            }
         }
 
     }

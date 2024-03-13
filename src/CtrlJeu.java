@@ -43,4 +43,16 @@ public class CtrlJeu {
     public void createDes() {
         game.createDes();
     }
+
+    public void payerLoyer(Joueur joueur, CasePropriete propriete, int totalDe) {
+        joueur.payerLoyer(propriete, totalDe);
+    }
+
+    public void acheterPropriete(Joueur joueur, CasePropriete propriete) {
+        joueur.acheterPropriete(propriete);
+    }
+
+    public void deplacement(Joueur joueur, int totalDe) {
+        joueur.deplacement(totalDe);
+    }
 }

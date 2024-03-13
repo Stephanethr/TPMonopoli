@@ -19,6 +19,7 @@ public class IHM {
 
         CtrlJeu ctrlJeu = new CtrlJeu();
         ctrlJeu.createGame(nbToursMax, nbJoueurs);
+        System.out.println(ctrlJeu.getPlateau());
 
         while (ctrlJeu.getCompteurTours() - 1 < ctrlJeu.getNbTours()) {
             for (Joueur joueur : ctrlJeu.getListeJoueur()) {
@@ -43,7 +44,7 @@ public class IHM {
                 System.out.println("Valeur des dés : " + de1 + " et " + de2);
 
                 System.out.println(joueur.getPseudo() + " a fait " + totalDe);
-                joueur.deplacement(totalDe);
+                ctrlJeu.deplacement(joueur, totalDe);
                 Case caseCourante = ctrlJeu.getPlateau().get(joueur.getPosition());
                 System.out.println(joueur.getPseudo() + " est sur la case " + caseCourante);
 
@@ -58,7 +59,7 @@ public class IHM {
 
                         if (choix.equalsIgnoreCase("y")) {
                             try {
-                                joueur.acheterPropriete(propriete);
+                                ctrlJeu.acheterPropriete(joueur, propriete);
                                 System.out.println(joueur.getPseudo() + " a acheté la propriété !");
                             } catch (Exception e) {
                                 System.out.println("Vous n'avez pas assez d'argent pour acheter la propriété.");
@@ -69,7 +70,7 @@ public class IHM {
                             System.out.println("La propriété appartient à " + propriete.getProprietaire().getPseudo());
                             System.out.println("Vous devez payer le loyer !");
                             try {
-                                joueur.payerLoyer(propriete);
+                                ctrlJeu.payerLoyer(joueur, propriete, totalDe);
                                 System.out.println(
                                         joueur.getPseudo() + " a payé le loyer à "
                                                 + propriete.getProprietaire().getPseudo());
@@ -93,7 +94,7 @@ public class IHM {
 
                     totalDe = de1 + de2;
                     System.out.println(joueur.getPseudo() + " a fait " + totalDe);
-                    joueur.deplacement(totalDe);
+                    ctrlJeu.deplacement(joueur, totalDe);
                     caseCourante = ctrlJeu.getPlateau().get(joueur.getPosition());
                     System.out.println(joueur.getPseudo() + " est sur la case " + caseCourante);
 
@@ -108,7 +109,7 @@ public class IHM {
 
                             if (choix.equalsIgnoreCase("y")) {
                                 try {
-                                    joueur.acheterPropriete(propriete);
+                                    ctrlJeu.acheterPropriete(joueur, propriete);
                                     System.out.println(joueur.getPseudo() + " a acheté la propriété !");
                                 } catch (Exception e) {
                                     System.out.println("Vous n'avez pas assez d'argent pour acheter la propriété.");
@@ -120,7 +121,7 @@ public class IHM {
                                         "La propriété appartient à " + propriete.getProprietaire().getPseudo());
                                 System.out.println("Vous devez payer le loyer !");
                                 try {
-                                    joueur.payerLoyer(propriete);
+                                    ctrlJeu.payerLoyer(joueur, propriete, totalDe);
                                     System.out.println(
                                             joueur.getPseudo() + " a payé le loyer à "
                                                     + propriete.getProprietaire().getPseudo());
@@ -135,6 +136,8 @@ public class IHM {
                         }
                     }
                 }
+                // TODO
+                // Gérer le cas de la case départ
                 if (joueur.getPosition() == 0) {
                     joueur.gagnerArgent(1000);
                     System.out.println(joueur.getPseudo() + " a passé la case départ et gagne 200€");
