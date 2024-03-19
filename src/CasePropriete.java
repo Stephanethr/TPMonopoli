@@ -9,7 +9,7 @@ public class CasePropriete extends Case {
 
     public CasePropriete(int position, String type) {
         super(position, type);
-        this.prix = random.nextInt(200) + 30;
+        this.prix = random.nextInt(400) + 30;
         this.loyer = prix / 10;
         this.proprietaire = null;
     }
