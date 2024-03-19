@@ -55,4 +55,8 @@ public class CtrlJeu {
     public void deplacement(Joueur joueur, int totalDe) {
         joueur.deplacement(totalDe);
     }
+
+    public Joueur getJoueurGagnant() {
+        return game.getJoueurGagnant();
+    }
 }

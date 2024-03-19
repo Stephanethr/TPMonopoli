@@ -4,15 +4,13 @@ public class Joueur {
     // Attributs
     private String pseudo;
     private int position;
-    private int nbTours;
     private int argent;
     private ArrayList<CasePropriete> listeProprietes; // Liste des propriétés possédées par le joueur
 
     public Joueur(String pseudo) {
         this.pseudo = pseudo;
         this.position = 0;
-        this.nbTours = 0;
-        this.argent = 10000;
+        this.argent = 1500;
         this.listeProprietes = new ArrayList<CasePropriete>();
     }
 
@@ -28,14 +26,6 @@ public class Joueur {
 
     public void setPosition(int position) {
         this.position = position;
-    }
-
-    public int getNbTours() {
-        return nbTours;
-    }
-
-    public void setNbTours(int nbTours) {
-        this.nbTours = nbTours;
     }
 
     public int getArgent() {
@@ -61,8 +51,16 @@ public class Joueur {
     // Méthode toString
 
     public String toString() {
-        return "Joueur [pseudo=" + pseudo + ", position=" + position + ", nbTours=" + nbTours + ", argent=" + argent
+        return "Joueur [pseudo=" + pseudo + ", position=" + position + ", argent=" + argent
                 + "]";
+    }
+
+    public String afficherProprietes() {
+        String listeProprietes = "";
+        for (CasePropriete propriete : this.listeProprietes) {
+            listeProprietes += "Type de propriété : " + propriete.getType() + ", Position : " + propriete.getPosition() + ", Loyer : " + propriete.getLoyer() + "\n";
+        }
+        return listeProprietes;
     }
 
     // Autres méthodes
@@ -70,6 +68,8 @@ public class Joueur {
     public void deplacement(int deValue) {
         if (this.position + deValue >= 40) {
             this.position = (this.position + deValue) - 40;
+            // le joueur passe par la case départ et gagne 1000
+            this.gagnerArgent(200);
         } else {
             this.position += deValue;
         }

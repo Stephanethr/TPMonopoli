@@ -7,6 +7,7 @@ public class IHM {
         int de1;
         int de2;
         int totalDe;
+        Case caseCourante;
         String choix;
         Scanner scanner = new Scanner(System.in);
 
@@ -19,20 +20,21 @@ public class IHM {
 
         CtrlJeu ctrlJeu = new CtrlJeu();
         ctrlJeu.createGame(nbToursMax, nbJoueurs);
-        System.out.println(ctrlJeu.getPlateau());
 
-        while (ctrlJeu.getCompteurTours() - 1 < ctrlJeu.getNbTours()) {
+        while (ctrlJeu.getCompteurTours() < ctrlJeu.getNbTours()+1 && ctrlJeu.getListeJoueur().size() > 1){
             for (Joueur joueur : ctrlJeu.getListeJoueur()) {
                 System.out
                         .println("\n------------------ TOUR " + ctrlJeu.getCompteurTours() + " DE " + joueur.getPseudo()
                                 + " ---------------------\n");
+                caseCourante = ctrlJeu.getPlateau().get(joueur.getPosition());
                 System.out.println(
-                        joueur.getPseudo() + " est sur la case " + ctrlJeu.getPlateau().get(joueur.getPosition()));
+                        joueur.getPseudo() + " est sur la case " + caseCourante.getPosition());
                 System.out.println("Argent de " + joueur.getPseudo() + " : " + joueur.getArgent());
-                System.out.println("Propriétés de " + joueur.getPseudo() + " : " + joueur.getProprietes() + "\n");
+                System.out
+                        .println("Propriétés de " + joueur.getPseudo() + " : \n" + joueur.afficherProprietes() + "\n");
 
                 System.out.println("Appuyez sur entrée pour lancer le dé" + "\n");
-                scanner.nextLine();
+                // scanner.nextLine();
 
                 // lancement des dés
                 de1 = ctrlJeu.getDes()[0].getValue();
@@ -45,7 +47,7 @@ public class IHM {
 
                 System.out.println(joueur.getPseudo() + " a fait " + totalDe);
                 ctrlJeu.deplacement(joueur, totalDe);
-                Case caseCourante = ctrlJeu.getPlateau().get(joueur.getPosition());
+                caseCourante = ctrlJeu.getPlateau().get(joueur.getPosition());
                 System.out.println(joueur.getPseudo() + " est sur la case " + caseCourante);
 
                 if (caseCourante instanceof CasePropriete) {
@@ -55,7 +57,8 @@ public class IHM {
                     if (propriete.getProprietaire() == null) {
                         System.out.println("La propriété est disponible à l'achat.");
                         System.out.println("Voulez-vous acheter la propriété ? (y/n)");
-                        choix = scanner.nextLine();
+                        // choix = scanner.nextLine();
+                        choix = "y";
 
                         if (choix.equalsIgnoreCase("y")) {
                             try {
@@ -72,11 +75,12 @@ public class IHM {
                             try {
                                 ctrlJeu.payerLoyer(joueur, propriete, totalDe);
                                 System.out.println(
-                                        joueur.getPseudo() + " a payé le loyer à "
+                                        joueur.getPseudo() + " a payé " + propriete.getLoyer() + " de loyer à "
                                                 + propriete.getProprietaire().getPseudo());
                             } catch (Exception e) {
                                 System.out.println(
                                         "Vous n'avez pas assez d'argent pour payer le loyer. Vous avez perdu la partie.");
+                                ctrlJeu.getListeJoueur().remove(joueur);
                             }
 
                         } else {
@@ -86,17 +90,26 @@ public class IHM {
                 }
 
                 // Gérer le cas des doubles
-                while (ctrlJeu.getDes()[0].getValue() == ctrlJeu.getDes()[1].getValue()) {
+                while (de1 == de2) {
                     System.out.println("Vous avez fait un double !");
                     System.out.println("Vous pouvez rejouer");
-                    scanner.nextLine();
-                    System.out.println("Valeur des dés : " + de1 + " et " + de2);
+                    //scanner.nextLine();
 
+                    // lancement des dés
+                    de1 = ctrlJeu.getDes()[0].getValue();
+                    de2 = ctrlJeu.getDes()[1].getValue();
+
+                    // Total des dés
                     totalDe = de1 + de2;
+
+                    System.out.println("Valeur des dés : " + de1 + " et " + de2);
                     System.out.println(joueur.getPseudo() + " a fait " + totalDe);
                     ctrlJeu.deplacement(joueur, totalDe);
                     caseCourante = ctrlJeu.getPlateau().get(joueur.getPosition());
                     System.out.println(joueur.getPseudo() + " est sur la case " + caseCourante);
+                    System.out.println("Argent de " + joueur.getPseudo() + " : " + joueur.getArgent());
+                    System.out.println(
+                            "Propriétés de " + joueur.getPseudo() + " : \n" + joueur.afficherProprietes() + "\n");
 
                     if (caseCourante instanceof CasePropriete) {
                         CasePropriete propriete = (CasePropriete) caseCourante;
@@ -105,7 +118,8 @@ public class IHM {
                         if (propriete.getProprietaire() == null) {
                             System.out.println("La propriété est disponible à l'achat.");
                             System.out.println("Voulez-vous acheter la propriété ? (y/n)");
-                            choix = scanner.nextLine();
+                            // choix = scanner.nextLine();
+                            choix = "y";
 
                             if (choix.equalsIgnoreCase("y")) {
                                 try {
@@ -123,11 +137,12 @@ public class IHM {
                                 try {
                                     ctrlJeu.payerLoyer(joueur, propriete, totalDe);
                                     System.out.println(
-                                            joueur.getPseudo() + " a payé le loyer à "
+                                            joueur.getPseudo() + " a payé " + propriete.getLoyer() + " de loyer à "
                                                     + propriete.getProprietaire().getPseudo());
                                 } catch (Exception e) {
                                     System.out.println(
                                             "Vous n'avez pas assez d'argent pour payer le loyer. Vous avez perdu la partie.");
+                                    ctrlJeu.getListeJoueur().remove(joueur);
                                 }
 
                             } else {
@@ -136,16 +151,14 @@ public class IHM {
                         }
                     }
                 }
-                // TODO
-                // Gérer le cas de la case départ
-                if (joueur.getPosition() == 0) {
-                    joueur.gagnerArgent(1000);
-                    System.out.println(joueur.getPseudo() + " a passé la case départ et gagne 200€");
-                }
 
             }
             ctrlJeu.setCompteurTours(ctrlJeu.getCompteurTours() + 1);
         }
         scanner.close();
+
+        System.out.println("La partie est terminée !");
+        System.out.println("Le joueur gagnant est : " + ctrlJeu.getJoueurGagnant().getPseudo());
+        System.out.println(ctrlJeu.getPlateau());
     }
 }

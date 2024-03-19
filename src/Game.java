@@ -76,4 +76,14 @@ public class Game {
         return des;
     }
 
+    public Joueur getJoueurGagnant() {
+        Joueur joueurGagnant = listeJoueur.get(0);
+        for (Joueur joueur : listeJoueur) {
+            if (joueur.getArgent() > joueurGagnant.getArgent()) {
+                joueurGagnant = joueur;
+            }
+        }
+        return joueurGagnant;
+    }
+
 }
