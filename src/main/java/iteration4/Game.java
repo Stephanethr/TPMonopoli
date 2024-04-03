@@ -68,34 +68,34 @@ public class Game {
         }
     }
 
-    private void createCartesFromJson(JSONArray jsonArray, ArrayList<Carte> listeCartes) {
-        for (Object o : jsonArray) {
-            JSONObject node = (JSONObject) o;
-            String type = (String) node.get("type");
-            String description = (String) node.get("description");
-            JSONArray actionsJson = (JSONArray) node.get("action");
+  private void createCartesFromJson(JSONArray jsonArray, ArrayList<Carte> listeCartes) {
+    for (Object o : jsonArray) {
+        JSONObject node = (JSONObject) o;
+        String type = (String) node.get("type");
+        String description = (String) node.get("description");
+        JSONArray actionsJson = (JSONArray) node.get("action");
 
-            ArrayList<Action> actions = new ArrayList<>();
-            for (Object actionObj : actionsJson) {
-                JSONObject actionNode = (JSONObject) actionObj;
+        ArrayList<Action> actions = new ArrayList<>();
+        for (Object actionObj : actionsJson) {
+            JSONObject actionNode = (JSONObject) actionObj;
 
-                // Utilisation de get() et de gestion manuelle des valeurs null
-                String actionType = (String) actionNode.get("type");
-                String destination = actionNode.get("destination") != null ? (String) actionNode.get("destination")
-                        : null;
-                Integer amount = actionNode.get("amount") != null ? ((Long) actionNode.get("amount")).intValue() : null;
-                String deck = actionNode.get("deck") != null ? (String) actionNode.get("deck") : null;
-                String from = actionNode.get("from") != null ? (String) actionNode.get("from") : null;
-                String to = actionNode.get("to") != null ? (String) actionNode.get("to") : null;
+            // Utilisation de get() et de gestion manuelle des valeurs null
+            String actionType = (String) actionNode.get("type");
+            String destination = actionNode.get("destination") != null ? (String) actionNode.get("destination") : null;
+            Integer amount = actionNode.get("amount") != null ? ((Long) actionNode.get("amount")).intValue() : null;
+            String deck = actionNode.get("deck") != null ? (String) actionNode.get("deck") : null;
+            String from = actionNode.get("from") != null ? (String) actionNode.get("from") : null;
+            String to = actionNode.get("to") != null ? (String) actionNode.get("to") : null;
 
-                Action action = new Action(actionType, destination, amount, deck, from, to);
-                actions.add(action);
-            }
-
-            Carte nouvelleCarte = new Carte(type, description, actions);
-            listeCartes.add(nouvelleCarte);
+            Action action = new Action(actionType, destination, amount, deck, from, to);
+            actions.add(action);
         }
+
+        Carte nouvelleCarte = new Carte(type, description, actions);
+        listeCartes.add(nouvelleCarte);
     }
+}
+
 
     public ArrayList<Carte> getChance() {
         return chance;
