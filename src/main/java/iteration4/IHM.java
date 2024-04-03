@@ -68,6 +68,9 @@ public class IHM {
             if (caseCourante instanceof CasePropriete) {
                 handlePropertyAction(ctrlJeu, joueur, (CasePropriete) caseCourante, totalDe);
             }
+            else{
+                handleSpecialAction(ctrlJeu, joueur, (CaseSpeciale)caseCourante);
+            }
 
             doubleDice = ctrlJeu.isDouble(ctrlJeu.getDes()[0].getValue(), ctrlJeu.getDes()[1].getValue());
             if (doubleDice) {
@@ -103,6 +106,8 @@ public class IHM {
                 System.out.println(pseudo + " est sur la case " + caseCourante);
                 if (caseCourante instanceof CasePropriete) {
                     handlePropertyAction(ctrlJeu, joueur, (CasePropriete) caseCourante, totalDe);
+                } else {
+                    handleSpecialAction(ctrlJeu, joueur, (CaseSpeciale) caseCourante);
                 }
                 return;
             }
@@ -112,7 +117,7 @@ public class IHM {
         System.out.println("Vous devez payer 50€ pour sortir.");
         ctrlJeu.payer(joueur, 50);
         ctrlJeu.sortirDePrison(joueur);
-        Case caseCourante = ctrlJeu.getCaseCourante(joueur);
+        // Case caseCourante = ctrlJeu.getCaseCourante(joueur);
     }
 
     private void handlePropertyAction(CtrlJeu ctrlJeu, Joueur joueur, CasePropriete propriete, int totalDe) {
@@ -145,6 +150,38 @@ public class IHM {
                 System.out.println("Vous possédez déjà cette propriété.");
             }
         }
+    }
+    public void handleSpecialAction(CtrlJeu ctrlJeu, Joueur joueur, CaseSpeciale caseCourante){
+
+        switch (ctrlJeu.getNomCase(caseCourante)){
+            case "Chance":
+                Carte carteChance = ctrlJeu.piocherCarteChance();
+                ctrlJeu.actionCarte(carteChance, joueur);
+                break;
+            case "Caisse de communauté":
+                Carte carteCaisseCommunaute = ctrlJeu.piocherCarteCaisseCommunaute();
+                ctrlJeu.actionCarte(carteCaisseCommunaute, joueur);
+                break;
+            case "Parc Gratuit":
+                System.out.println("Vous êtes sur le parc gratuit. Vous ne payez rien.");
+                break;
+            case "Taxe de luxe":
+                System.out.println("Vous êtes sur la case Taxe de luxe. Vous devez payer 100€.");
+                ctrlJeu.payer(joueur, 100);
+                break;
+            case "Impots":
+                System.out.println("Vous êtes sur la case Impots. Vous devez payer 200€.");
+                ctrlJeu.payer(joueur, 200);
+                break;
+            case "Allez en prison":
+                System.out.println("Vous êtes sur la case Allez en prison. Vous allez en prison.");
+                ctrlJeu.allerEnPrison(joueur);
+                break;
+            
+            default:
+                System.out.println("Case Départ. Vous recevez 200€. ");
+        }
+
     }
 
     private int askForNumber(String message) {

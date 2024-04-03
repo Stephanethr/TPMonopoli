@@ -48,6 +48,10 @@ public class CtrlJeu {
         joueur.payer(montant);
     }
 
+    public void gagnerArgent(Joueur joueur, int montant) {
+        joueur.gagnerArgent(montant);
+    }
+
     public void payerLoyer(Joueur joueur, CasePropriete propriete, int totalDe) {
         joueur.payerLoyer(propriete, totalDe);
     }
