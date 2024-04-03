@@ -172,7 +172,7 @@ public class IHM {
             case "Parking Gratuit":
                 System.out.println("Vous êtes sur le parc gratuit. Vous ne payez rien.");
                 break;
-            case "Taxe de luxe":
+            case "Taxe de Luxe":
                 System.out.println("Vous êtes sur la case Taxe de luxe. Vous devez payer 100€.");
                 ctrlJeu.payer(joueur, 100);
                 break;

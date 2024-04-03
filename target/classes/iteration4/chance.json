@@ -9,20 +9,7 @@
       }
     ]
   },
-  {
-    "type": "Chance",
-    "description": "Payez une amende de 50 € ou piochez une carte 'Caisse de Communauté'.",
-    "action": [
-      {
-        "type": "debit",
-        "amount": 50
-      },
-      {
-        "type": "pioche",
-        "deckName": "Caisse de Communauté"
-      }
-    ]
-  },
+ 
   {
     "type": "Chance",
     "description": "Reculez de trois cases.",
