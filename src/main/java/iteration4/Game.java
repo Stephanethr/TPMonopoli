@@ -225,7 +225,7 @@ public class Game {
 
     public void lancerDes() {
         for (int i = 0; i < des.length; i++) {
-            des[i].lancerTest();
+            des[i].lancer();
         }
     }
 
