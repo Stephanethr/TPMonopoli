@@ -114,9 +114,10 @@ public class CtrlJeu {
     }
 
     public String actionCarte(Carte carte, Joueur joueur) {
-        ArrayList<Joueur> listJoueurs = game.getListeJoueur();
+        ArrayList<Joueur> listJoueurs = new ArrayList<Joueur>(getListeJoueur());
         listJoueurs.remove(joueur);
         return game.actionCarte(carte, joueur, listJoueurs);
+        
     }
 
    

@@ -68,34 +68,35 @@ public class Game {
         }
     }
 
-  private void createCartesFromJson(JSONArray jsonArray, ArrayList<Carte> listeCartes) {
-    for (Object o : jsonArray) {
-        JSONObject node = (JSONObject) o;
-        String type = (String) node.get("type");
-        String description = (String) node.get("description");
-        JSONArray actionsJson = (JSONArray) node.get("action");
+    private void createCartesFromJson(JSONArray jsonArray, ArrayList<Carte> listeCartes) {
+        for (Object o : jsonArray) {
+            JSONObject node = (JSONObject) o;
+            String type = (String) node.get("type");
+            String description = (String) node.get("description");
+            JSONArray actionsJson = (JSONArray) node.get("action");
 
-        ArrayList<Action> actions = new ArrayList<>();
-        for (Object actionObj : actionsJson) {
-            JSONObject actionNode = (JSONObject) actionObj;
+            ArrayList<Action> actions = new ArrayList<>();
+            for (Object actionObj : actionsJson) {
+                JSONObject actionNode = (JSONObject) actionObj;
 
-            // Utilisation de get() et de gestion manuelle des valeurs null
-            String actionType = (String) actionNode.get("type");
-            String destination = actionNode.get("destination") != null ? (String) actionNode.get("destination") : null;
-            Integer amount = actionNode.get("amount") != null ? ((Long) actionNode.get("amount")).intValue() : null;
-            String deck = actionNode.get("deck") != null ? (String) actionNode.get("deck") : null;
-            String from = actionNode.get("from") != null ? (String) actionNode.get("from") : null;
-            String to = actionNode.get("to") != null ? (String) actionNode.get("to") : null;
+                // Utilisation de get() et de gestion manuelle des valeurs null
+                String actionType = (String) actionNode.get("type");
+                String destination = actionNode.get("destination") != null ? (String) actionNode.get("destination")
+                        : null;
+                int amount = actionNode.get("amount") != null ? ((Long) actionNode.get("amount")).intValue() : 0;
+                
+                String deckName = actionNode.get("deckName") != null ? (String) actionNode.get("deckName") : null;
+                String from = actionNode.get("from") != null ? (String) actionNode.get("from") : null;
+                String to = actionNode.get("to") != null ? (String) actionNode.get("to") : null;
 
-            Action action = new Action(actionType, destination, amount, deck, from, to);
-            actions.add(action);
+                Action action = new Action(actionType, destination, amount, deckName, from, to);
+                actions.add(action);
+            }
+
+            Carte nouvelleCarte = new Carte(type, description, actions);
+            listeCartes.add(nouvelleCarte);
         }
-
-        Carte nouvelleCarte = new Carte(type, description, actions);
-        listeCartes.add(nouvelleCarte);
     }
-}
-
 
     public ArrayList<Carte> getChance() {
         return chance;
@@ -119,75 +120,69 @@ public class Game {
         return carte;
     }
 
-    public String actionCarte(Carte carte, Joueur joueur, ArrayList<Joueur> listeJoueur) {
-        String message = "";
+    public String actionCarte(Carte carte, Joueur joueur, ArrayList<Joueur> autresJoueurs) {
+    StringBuilder message = new StringBuilder();
+    message.append(carte.getDescription()).append("\n");
 
-        for (Action action : carte.getActions()) {
-            switch (action.getType()) {
-
-                case "credit":
-                    if (action.getFrom() != null) {
-                        for (Joueur j : listeJoueur) {
-                            j.payer(action.getAmount());
-                        }
-
-                    }
-                    else{
+    for (Action action : carte.getActions()) {
+        switch (action.getType()) {
+            case "move":
+                // Déplacement vers une case spécifique
+                if ("Départ".equals(action.getDestination())) {
+                    joueur.setPosition(0); // Assurez-vous que 0 est l'index de la case Départ
+                    message.append("Avancez jusqu'à la case Départ. ");
+                } else if ("Prison".equals(action.getDestination())) {
+                    joueur.allerEnPrison();
+                    message.append("Allez en prison. ");
+                } else {
+                    // Gérer les déplacements spéciaux si nécessaire
+                }
+                break;
+            case "credit":
+                if (action.getFrom() != null && "all".equals(action.getFrom())) {
+                    // Le joueur reçoit de l'argent de tous les autres joueurs
+                    for (Joueur autreJoueur : autresJoueurs) {
+                        autreJoueur.payer(action.getAmount());
                         joueur.gagnerArgent(action.getAmount());
                     }
+                    message.append("Recevez ").append(action.getAmount()).append(" € de chaque joueur. ");
+                } else {
                     joueur.gagnerArgent(action.getAmount());
-                    message += carte.getDescription() + "\n";
-                    break;
-
-                case "debit":
-
-                    if (action.getTo() != null) {
-                        for (Joueur j : listeJoueur) {
-                            j.gagnerArgent(action.getAmount());
-                        }
+                    message.append("Recevez ").append(action.getAmount()).append(" €. ");
+                }
+                break;
+            case "debit":
+                if (action.getTo() != null && "all".equals(action.getTo())) {
+                    // Le joueur paye de l'argent à tous les autres joueurs
+                    for (Joueur autreJoueur : autresJoueurs) {
+                        joueur.payer(action.getAmount());
+                        autreJoueur.gagnerArgent(action.getAmount());
                     }
+                    message.append("Payez ").append(action.getAmount()).append(" € à chaque joueur. ");
+                } else {
                     joueur.payer(action.getAmount());
-                    
-                    message += carte.getDescription() + "\n";
-                    break;
-
-                case "move":
-                    switch (action.getDestination()) {
-                        case "recule":
-                            joueur.deplacement(-action.getAmount());
-                            message += carte.getDescription() + "\n";
-                            break;
-                        case "Départ":
-                            joueur.setPosition(0);
-                            joueur.gagnerArgent(200);
-                            message += carte.getDescription() + "\n";
-                            break;
-                        case "Prison":
-                            joueur.setPosition(10);
-                            message += carte.getDescription() + "\n";
-                            break;
-
-                        default:
-                            break;
-                    }
-
-                case "pioche":
-                    if (action.getDeck().equals("chance")) {
-                        Carte carteChance = tirerCarteChance();
-                        message += carte.getDescription() + "\n";
-                        message += actionCarte(carteChance, joueur, listeJoueur);
-                    } else {
-                        Carte carteCaisseCommunaute = tirerCarteCaisseCommunaute();
-                        message += carte.getDescription() + "\n";
-                        message += actionCarte(carteCaisseCommunaute, joueur, listeJoueur);
-                    }
-                    break;
-                default:
-                    break;
-            }
+                    message.append("Payez ").append(action.getAmount()).append(" €. ");
+                }
+                break;
+            case "pioche":
+                if ("Chance".equals(action.getdeckName())) {
+                    // Piocher une carte Chance et exécuter son action
+                    Carte nouvelleCarteChance = tirerCarteChance();
+                    message.append("Piochez une carte Chance. ").append(actionCarte(nouvelleCarteChance, joueur, autresJoueurs));
+                } else if ("Caisse de Communauté".equals(action.getdeckName())) {
+                    // Piocher une carte Caisse de Communauté et exécuter son action
+                    Carte nouvelleCarteCaisse = tirerCarteCaisseCommunaute();
+                    message.append("Piochez une carte Caisse de Communauté. ").append(actionCarte(nouvelleCarteCaisse, joueur, autresJoueurs));
+                }
+                break;
+            default:
+                message.append("Action inconnue. ");
+                break;
         }
-        return message;
     }
+    return message.toString();
+}
+
 
     public void createPlateau() {
         this.plateau = new ArrayList<Case>();

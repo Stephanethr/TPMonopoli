@@ -89,6 +89,14 @@ public class Joueur {
         }
     }
 
+    public void reculer(int deValue) {
+        if (this.position - deValue < 0) {
+            this.position = 40 - (deValue - this.position);
+        } else {
+            this.position -= deValue;
+        }
+    }
+
     public void payer(int montant) {
         this.argent -= montant;
     }

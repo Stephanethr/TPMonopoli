@@ -19,7 +19,7 @@
       },
       {
         "type": "pioche",
-        "deck": "Caisse de Communauté"
+        "deckName": "Caisse de Communauté"
       }
     ]
   },

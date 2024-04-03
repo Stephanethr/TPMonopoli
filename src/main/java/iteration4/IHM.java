@@ -1,4 +1,6 @@
 package iteration4;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class IHM {
@@ -10,28 +12,33 @@ public class IHM {
     }
 
     private void startGame() {
-        System.out.println("Bienvenue dans le jeu Monopoly");
-        int nbToursMax = askForNumber("Combien de tours voulez-vous jouer ?");
-        int nbJoueurs = askForNumber("Combien de joueurs ?");
+    System.out.println("Bienvenue dans le jeu Monopoly");
+    int nbToursMax = askForNumber("Combien de tours voulez-vous jouer ?");
+    int nbJoueurs = askForNumber("Combien de joueurs ?");
 
-        CtrlJeu ctrlJeu = new CtrlJeu(nbToursMax, nbJoueurs);
-        System.out.println("LE PLATEAU : " + ctrlJeu.getPlateau());
-        System.out.println("les cartes chance : " + ctrlJeu.getChance());
-        System.out.println("les cartes caisse de communauté : " + ctrlJeu.getCaisseCommunaute());
+    CtrlJeu ctrlJeu = new CtrlJeu(nbToursMax, nbJoueurs);
+    System.out.println("LE PLATEAU : " + ctrlJeu.getPlateau());
+    System.out.println("les cartes chance : " + ctrlJeu.getChance());
+    System.out.println("les cartes caisse de communauté : " + ctrlJeu.getCaisseCommunaute());
 
-        while (!ctrlJeu.isGameOver()) {
-            for (Joueur joueur : ctrlJeu.getListeJoueur()) {
-                playTurn(ctrlJeu, joueur);
-            }
-            ctrlJeu.incrementerCompteurTours();
+    List<Joueur> listeJoueursCopy = new ArrayList<>(ctrlJeu.getListeJoueur()); // Copie de la liste des joueurs
+
+    while (!ctrlJeu.isGameOver()) {
+        for (Joueur joueur : listeJoueursCopy) {
+            playTurn(ctrlJeu, joueur);
+
+            System.out.println("\n Argent de " + ctrlJeu.getPseudo(joueur) + " : " + ctrlJeu.getArgent(joueur));
         }
-
-        System.out.println("La partie est terminée !");
-        System.out.println("Le joueur gagnant est : " + ctrlJeu.getJoueurGagnant().getPseudo());
-        System.out.println(ctrlJeu.getPlateau());
-
-        scanner.close();
+        ctrlJeu.incrementerCompteurTours();
     }
+
+    System.out.println("La partie est terminée !");
+    System.out.println("Le joueur gagnant est : " + ctrlJeu.getJoueurGagnant().getPseudo());
+    System.out.println(ctrlJeu.getPlateau());
+
+    scanner.close();
+}
+
 
     private void playTurn(CtrlJeu ctrlJeu, Joueur joueur) {
         String pseudo = ctrlJeu.getPseudo(joueur);
@@ -156,13 +163,13 @@ public class IHM {
         switch (ctrlJeu.getNomCase(caseCourante)){
             case "Chance":
                 Carte carteChance = ctrlJeu.piocherCarteChance();
-                ctrlJeu.actionCarte(carteChance, joueur);
+                System.out.println(ctrlJeu.actionCarte(carteChance, joueur));
                 break;
-            case "Caisse de communauté":
+            case "Caisse de Communauté":
                 Carte carteCaisseCommunaute = ctrlJeu.piocherCarteCaisseCommunaute();
-                ctrlJeu.actionCarte(carteCaisseCommunaute, joueur);
+                System.out.println(ctrlJeu.actionCarte(carteCaisseCommunaute, joueur));
                 break;
-            case "Parc Gratuit":
+            case "Parking Gratuit":
                 System.out.println("Vous êtes sur le parc gratuit. Vous ne payez rien.");
                 break;
             case "Taxe de luxe":
@@ -173,13 +180,16 @@ public class IHM {
                 System.out.println("Vous êtes sur la case Impots. Vous devez payer 200€.");
                 ctrlJeu.payer(joueur, 200);
                 break;
-            case "Allez en prison":
+            case "Allez en Prison":
                 System.out.println("Vous êtes sur la case Allez en prison. Vous allez en prison.");
                 ctrlJeu.allerEnPrison(joueur);
                 break;
+            case "Prison" :
+                System.out.println("Vous êtes sur la case Prison. vous vous moquez des autres joueurs.");
+                break;
             
             default:
-                System.out.println("Case Départ. Vous recevez 200€. ");
+                System.out.println("Case Départ. Vous recevez 200€.");
         }
 
     }

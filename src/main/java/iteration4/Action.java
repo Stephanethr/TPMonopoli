@@ -1,22 +1,20 @@
 package iteration4;
 
-
-
 // Classe représentant une action individuelle associée à une carte
 class Action {
     private String type;
     private String destination; // Peut être null pour certains types d'action
     private Integer amount; // Peut être null pour certains types d'action
-    private String deck; // Peut être null sauf pour "pioche"
+    private String deckName; // Peut être null sauf pour "pioche"
     private String from;
     private String to;
 
     // Constructeur
-    public Action(String type, String destination, Integer amount, String deck, String from, String to) {
+    public Action(String type, String destination, Integer amount, String deckName, String from, String to) {
         this.type = type;
         this.destination = destination;
         this.amount = amount;
-        this.deck = deck;
+        this.deckName = deckName;
         this.from = from;
         this.to = to;
     }
@@ -54,12 +52,12 @@ class Action {
         this.amount = amount;
     }
 
-    public String getDeck() {
-        return deck;
+    public String getdeckName() {
+        return deckName;
     }
 
-    public void setDeck(String deck) {
-        this.deck = deck;
+    public void setdeckName(String deckName) {
+        this.deckName = deckName;
     }
 
     public void setFrom(String from) {
@@ -73,6 +71,7 @@ class Action {
     // Méthode toString pour affichage
     @Override
     public String toString() {
-        return " Action [type=" + type + ", destination=" + destination + ", amount=" + amount + ", deck=" + deck + "] \n";
+        return " Action [type=" + type + ", destination=" + destination + ", amount=" + amount + ", deckName="
+                + deckName + "] \n";
     }
 }
