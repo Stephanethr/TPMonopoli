@@ -24,7 +24,7 @@
   {"type": "Speciale",  "nom": "Chance"},
   {"type": "Propriete",  "nom": "Boulevard Malesherbes", "prix": 220},
   {"type": "Propriete", "nom": "Avenue Henri-Martin", "prix": 240},
-  {"type": "Gare", "nom": "Gare du Nord", "loyer": 200},
+  {"type": "Gare", "nom": "Gare du Nord", "prix": 200},
   {"type": "Propriete",  "nom": "Faubourg Saint-Honoré", "prix": 260},
   {"type": "Propriete",  "nom": "Place de la Bourse", "prix": 260},
   {"type": "Compagnie",  "nom": "Compagnie des Eaux", "prix": 150},

@@ -23,6 +23,7 @@ public class Game {
         setListJoueurs(nbJoueurs);
         createPlateau();
         createDes();
+        createCartes();
     }
 
     public void setListJoueurs(int nbJoueurs) {
@@ -83,6 +84,14 @@ public class Game {
         } catch (IOException | org.json.simple.parser.ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<Carte> getChance() {
+        return chance;
+    }
+
+    public ArrayList<Carte> getCaisseCommunaute() {
+        return caisseCommunaute;
     }
 
    

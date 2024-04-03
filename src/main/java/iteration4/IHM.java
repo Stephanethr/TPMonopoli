@@ -22,6 +22,8 @@ public class IHM {
 
         CtrlJeu ctrlJeu = new CtrlJeu(nbToursMax, nbJoueurs);
         System.out.println("LE PLATEAU : " + ctrlJeu.getPlateau());
+        System.out.println("les cartes chance : " + ctrlJeu.getChance());
+        System.out.println("les cartes caisse de communauté : " + ctrlJeu.getCaisseCommunaute());
 
         while (ctrlJeu.getCompteurTours() < ctrlJeu.getNbTours()+1 && ctrlJeu.getListeJoueur().size() > 1){
             for (Joueur joueur : ctrlJeu.getListeJoueur()) {
