@@ -82,9 +82,10 @@ public class Game {
         try {
             // Créer un objet JSONParser pour lire le fichier JSON
             JSONParser parser = new JSONParser();
+            String chemin = System.getProperty("user.dir") + "/src/main/java/iteration4/plateau.json";
 
             // Lire le fichier JSON
-            Object obj = parser.parse(new FileReader("./plateau.json"));
+            Object obj = parser.parse(new FileReader(chemin));
 
             // Convertir l'objet JSON en JSONObject
             JSONArray jsonArray = (JSONArray) obj;
