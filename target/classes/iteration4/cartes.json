@@ -1,0 +1,26 @@
+{
+  "cartes_chance": [
+    "Avancez jusqu'à la case Départ. Recevez €200.",
+    "Payez une amende de €50 ou piochez une carte 'Caisse de Communauté'.",
+    "Reculez de trois cases.",
+    "Recevez un bonus de €100 pour avoir gagné un concours de beauté.",
+    "Allez en prison. Avancez tout droit en prison. Ne passez pas par la case Départ. Ne touchez pas €200.",
+    "Recevez un remboursement d'impôt de €20.",
+    "Recevez une amende pour excès de vitesse. Payez €15.",
+    "Recevez €50 pour avoir vendu des actions.",
+    "Allez directement à la case Gare et si elle n'est pas achetée, vous pouvez l'acheter.",
+    "Recevez €25 d'honoraires de consultation."
+  ],
+  "cartes_caisse_communaute": [
+    "Allez en prison. Avancez tout droit en prison. Ne passez pas par la case Départ. Ne touchez pas €200.",
+    "Payez l'hôpital €100.",
+    "Recevez une carte de crédit de fidélité. Recevez €50.",
+    "Erreur de banque en votre faveur. Recevez €200.",
+    "Vous héritez de €100.",
+    "Anniversaire. Recevez €10 de chaque joueur.",
+    "Recevez une indemnité de départ de €100.",
+    "Payez votre assurance habitation. €50.",
+    "Vous êtes élu président du comité. Payez à chaque joueur €50.",
+    "Payer l'école €50 pour les frais de scolarité."
+  ]
+}
