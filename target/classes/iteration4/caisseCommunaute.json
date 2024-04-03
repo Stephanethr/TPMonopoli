@@ -1,0 +1,42 @@
+[
+  {
+    "type": "Caisse de Communauté",
+    "description": "Allez en prison. Avancez tout droit en prison. Ne passez pas par la case Départ. Ne touchez pas $200."
+  },
+  {
+    "type": "Caisse de Communauté",
+    "description": "Payez l'hôpital $100."
+  },
+  {
+    "type": "Caisse de Communauté",
+    "description": "Recevez une carte de crédit de fidélité. Recevez $50."
+  },
+  {
+    "type": "Caisse de Communauté",
+    "description": "Erreur de banque en votre faveur. Recevez $200."
+  },
+  {
+    "type": "Caisse de Communauté",
+    "description": "Vous héritez de $100."
+  },
+  {
+    "type": "Caisse de Communauté",
+    "description": "Anniversaire. Recevez $10 de chaque joueur."
+  },
+  {
+    "type": "Caisse de Communauté",
+    "description": "Recevez une indemnité de départ de $100."
+  },
+  {
+    "type": "Caisse de Communauté",
+    "description": "Payez votre assurance habitation. $50."
+  },
+  {
+    "type": "Caisse de Communauté",
+    "description": "Vous êtes élu président du comité. Payez à chaque joueur $50."
+  },
+  {
+    "type": "Caisse de Communauté",
+    "description": "Payer l'école $50 pour les frais de scolarité."
+  }
+]
