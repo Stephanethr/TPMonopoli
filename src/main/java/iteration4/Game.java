@@ -78,13 +78,17 @@ public class Game {
             ArrayList<Action> actions = new ArrayList<>();
             for (Object actionObj : actionsJson) {
                 JSONObject actionNode = (JSONObject) actionObj;
-                Action action = new Action(
-                        (String) actionNode.get("type"),
-                        (String) actionNode.getOrDefault("destination", null),
-                        actionNode.get("amount") != null ? ((Long) actionNode.get("amount")).intValue() : null,
-                        (String) actionNode.getOrDefault("deck", null),
-                        (String) actionNode.getOrDefault("from", null),
-                        (String) actionNode.getOrDefault("to", null));
+
+                // Utilisation de get() et de gestion manuelle des valeurs null
+                String actionType = (String) actionNode.get("type");
+                String destination = actionNode.get("destination") != null ? (String) actionNode.get("destination")
+                        : null;
+                Integer amount = actionNode.get("amount") != null ? ((Long) actionNode.get("amount")).intValue() : null;
+                String deck = actionNode.get("deck") != null ? (String) actionNode.get("deck") : null;
+                String from = actionNode.get("from") != null ? (String) actionNode.get("from") : null;
+                String to = actionNode.get("to") != null ? (String) actionNode.get("to") : null;
+
+                Action action = new Action(actionType, destination, amount, deck, from, to);
                 actions.add(action);
             }
 
