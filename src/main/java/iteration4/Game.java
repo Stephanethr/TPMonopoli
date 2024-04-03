@@ -1,10 +1,11 @@
 package iteration4;
 
-import java.io.File;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Game
@@ -39,40 +40,40 @@ public class Game {
         this.plateau = new ArrayList<Case>();
 
         try {
-            // Créer un ObjectMapper (objet de Jackson pour la conversion JSON)
-            ObjectMapper objectMapper = new ObjectMapper();
+            // Créer un objet JSONParser pour lire le fichier JSON
+            JSONParser parser = new JSONParser();
 
-            // Lire le fichier JSON et le mapper vers un JsonNode
-            JsonNode jsonNode = objectMapper.readTree(new File("./plateau.json"));
+            // Lire le fichier JSON
+            Object obj = parser.parse(new FileReader("./plateau.json"));
 
-            // Parcourir le JSON et créer les cases correspondantes
-            for (JsonNode node : jsonNode) {
-                String type = node.get("type").asText();
-                int position = node.get("position").asInt();
-                String nom = node.get("nom").asText();
+            // Convertir l'objet JSON en JSONObject
+            JSONArray jsonArray = (JSONArray) obj;
+
+            // Parcourir le JSONArray et créer les cases correspondantes
+            for (Object o : jsonArray) {
+                JSONObject node = (JSONObject) o;
+
+                String type = (String) node.get("type");
+                int position = ((Long) node.get("position")).intValue();
+                String nom = (String) node.get("nom");
+
                 Case nouvelleCase = null;
 
                 if (type.equals("Speciale")) {
                     nouvelleCase = new CaseSpeciale(position, type, nom);
-                    this.plateau.add(nouvelleCase);
-                    continue;
-                }
-                else{
-                    nom = node.get("nom").asText();
-                    prix = node.get("prix").asInt();
+                } else if (type.equals("Propriete")) {
+                    int prix = ((Long) node.get("prix")).intValue();
                     nouvelleCase = new CasePropriete(position, type, nom, prix);
-                    break;
                 }
 
                 if (nouvelleCase != null) {
                     this.plateau.add(nouvelleCase);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | org.json.simple.parser.ParseException e) {
             e.printStackTrace();
         }
     }
-
     public int getNbTours() {
         return nbTours;
     }
