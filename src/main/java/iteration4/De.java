@@ -16,4 +16,8 @@ public class De {
         this.value = (int) (Math.random() * 6) + 1;
     }
 
+    public void lancerTest(){
+        this.value = 6;
+    }
+
 }

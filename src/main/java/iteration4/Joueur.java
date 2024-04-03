@@ -8,12 +8,16 @@ public class Joueur {
     private int position;
     private int argent;
     private ArrayList<CasePropriete> listeProprietes; // Liste des propriétés possédées par le joueur
+    private boolean enPrison;
+    private int nbToursPrison;
 
     public Joueur(String pseudo) {
         this.pseudo = pseudo;
         this.position = 0;
         this.argent = 1500;
         this.listeProprietes = new ArrayList<CasePropriete>();
+        this.enPrison = false;
+        this.nbToursPrison = 0;
     }
 
     // Méthodes pour accéder et modifier les attributs (getters/setters)
@@ -50,6 +54,14 @@ public class Joueur {
         this.listeProprietes = proprietes;
     }
 
+    public boolean getEnPrison() {
+        return enPrison;
+    }
+
+    public int getNbToursPrison() {
+        return nbToursPrison;
+    }
+
     // Méthode toString
 
     public String toString() {
@@ -75,6 +87,10 @@ public class Joueur {
         } else {
             this.position += deValue;
         }
+    }
+
+    public void payer(int montant) {
+        this.argent -= montant;
     }
 
     public void acheterPropriete(CasePropriete propriete) {
@@ -114,6 +130,21 @@ public class Joueur {
                 }
             }
         }
+
+    }
+
+    public void allerEnPrison() {
+        this.enPrison = true;
+        this.position = 10;
+    }
+
+    public void sortirDePrison() {
+        this.enPrison = false;
+        this.nbToursPrison = 0;
+    }
+
+    public void incrementerNbToursPrison() {
+        this.nbToursPrison++;
 
     }
 
