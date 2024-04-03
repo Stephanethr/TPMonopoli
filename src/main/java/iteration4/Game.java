@@ -85,12 +85,20 @@ public class Game {
         }
     }
 
-    public ArrayList<Carte> getCartesChance() {
-        return chance;
+   
+
+    // Fonction qui permet de tirer une carte chance aléatoirement
+    public Carte tirerCarteChance() {
+        int index = (int) (Math.random() * chance.size());
+        Carte carte = chance.get(index);
+        return carte;
     }
 
-    public ArrayList<Carte> getCartesCaisseCommunaute() {
-        return caisseCommunaute;
+    // Fonction qui permet de tirer une carte caisse de communauté aléatoirement
+    public Carte tirerCarteCaisseCommunaute() {
+        int index = (int) (Math.random() * caisseCommunaute.size());
+        Carte carte = caisseCommunaute.get(index);
+        return carte;
     }
 
     public void createPlateau() {

@@ -26,6 +26,7 @@ public abstract class Case {
         return type;
     }
 
+    
     // Méthode toString
     public String toString() {
         return "Case position=" + position + ", type=" + type + "\n";
