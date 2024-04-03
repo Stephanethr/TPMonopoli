@@ -85,8 +85,12 @@ public class Game {
         }
     }
 
-    public ArrayList<Carte> getCartes() {
-        return cartes;
+    public ArrayList<Carte> getCartesChance() {
+        return chance;
+    }
+
+    public ArrayList<Carte> getCartesCaisseCommunaute() {
+        return caisseCommunaute;
     }
 
     public void createPlateau() {
