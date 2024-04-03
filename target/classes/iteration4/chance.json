@@ -1,0 +1,42 @@
+[
+  {
+    "type": "Chance",
+    "description": "Avancez jusqu'à la case Départ. Recevez $200."
+  },
+  {
+    "type": "Chance",
+    "description": "Payez une amende de $50 ou piochez une carte 'Caisse de Communauté'."
+  },
+  {
+    "type": "Chance",
+    "description": "Reculez de trois cases."
+  },
+  {
+    "type": "Chance",
+    "description": "Recevez un bonus de $100 pour avoir gagné un concours de beauté."
+  },
+  {
+    "type": "Chance",
+    "description": "Allez en prison. Avancez tout droit en prison. Ne passez pas par la case Départ. Ne touchez pas $200."
+  },
+  {
+    "type": "Chance",
+    "description": "Recevez un remboursement d'impôt de $20."
+  },
+  {
+    "type": "Chance",
+    "description": "Recevez une amende pour excès de vitesse. Payez $15."
+  },
+  {
+    "type": "Chance",
+    "description": "Recevez $50 pour avoir vendu des actions."
+  },
+  {
+    "type": "Chance",
+    "description": "Allez directement à la case Gare et si elle n'est pas achetée, vous pouvez l'acheter."
+  },
+  {
+    "type": "Chance",
+    "description": "Recevez $25 d'honoraires de consultation."
+  }
+]
