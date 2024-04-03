@@ -16,10 +16,63 @@ public class CtrlJeu {
 
     }
 
+    // Méthodes joueur
     public ArrayList<Joueur> getListeJoueur() {
         return game.getListeJoueur();
     }
 
+    public void acheterPropriete(Joueur joueur, CasePropriete propriete) {
+        joueur.acheterPropriete(propriete);
+    }
+
+    public String afficherProprietes(Joueur joueur) {
+        return joueur.afficherProprietes();
+    }
+    public void deplacement(Joueur joueur, int totalDe) {
+        joueur.deplacement(totalDe);
+    }
+
+    public String getPseudo(Joueur joueur) {
+        return joueur.getPseudo();
+    }
+
+    public int getPosition(Joueur joueur) {
+        return joueur.getPosition();
+    }
+
+    public int getArgent(Joueur joueur) {
+        return joueur.getArgent();
+    }
+
+    public void payer(Joueur joueur, int montant) {
+        joueur.payer(montant);
+    }
+
+    public void payerLoyer(Joueur joueur, CasePropriete propriete, int totalDe) {
+        joueur.payerLoyer(propriete, totalDe);
+    }
+
+    public void allerEnPrison(Joueur joueur) {
+        joueur.allerEnPrison();
+    }
+
+    public void sortirDePrison(Joueur joueur) {
+        joueur.sortirDePrison();
+    }
+
+    public boolean getEnPrison(Joueur joueur) {
+        return joueur.getEnPrison();
+    }
+
+    public void incrementerNbToursPrison(Joueur joueur) {
+        joueur.incrementerNbToursPrison();
+    }
+
+    public int getNbToursPrison(Joueur joueur) {
+        return joueur.getNbToursPrison();
+    }
+
+    // infos des tours
     public int getCompteurTours() {
         return game.getCompteurTours();
     }
@@ -28,6 +81,12 @@ public class CtrlJeu {
         return game.getNbTours();
     }
 
+    public void setCompteurTours(int compteurTours) {
+        game.setCompteurTours(compteurTours);
+    }
+
+
+    // plateau et cartes
     public ArrayList<Case> getPlateau() {
         return game.getPlateau();
     }
@@ -50,34 +109,55 @@ public class CtrlJeu {
         return game.tirerCarteCaisseCommunaute();
     }
 
-   
-    
+
+
 
     // Dés
-
     public De[] getDes() {
         return game.getDes();
     }
 
-    public void setCompteurTours(int compteurTours) {
-        game.setCompteurTours(compteurTours);
+    public void lancerDes() {
+        game.lancerDes();
     }
 
-    public void payerLoyer(Joueur joueur, CasePropriete propriete, int totalDe) {
-        joueur.payerLoyer(propriete, totalDe);
+    public int totalDes() {
+        return getDes()[0].getValue() + getDes()[1].getValue();
     }
 
-    public void acheterPropriete(Joueur joueur, CasePropriete propriete) {
-        joueur.acheterPropriete(propriete);
-    }
-
-    public void deplacement(Joueur joueur, int totalDe) {
-        joueur.deplacement(totalDe);
-    }
-
+    // Méthodes de jeu
     public Joueur getJoueurGagnant() {
         return game.getJoueurGagnant();
     }
 
-    
+    public String getNomCase(Case caseCourante) {
+        return caseCourante.getNom();
+    }
+
+
+    public boolean isGameOver() {
+        return game.isGameOver();
+    }
+
+    public void incrementerCompteurTours() {
+        game.incrementerCompteurTours();
+    }
+
+    public Case getCaseCourante(Joueur joueur) {
+        return game.getCaseCourante(joueur);
+    }
+
+    public boolean canReleaseFromJail(Joueur joueur) {
+        if (getEnPrison(joueur)) {
+            int de1 = getDes()[0].getValue();
+            int de2 = getDes()[1].getValue();
+            return isDouble(de1, de2);
+        }
+        return false;
+    }
+
+    public boolean isDouble(int de1, int de2) {
+        return de1 == de2;
+    }
+
 }
