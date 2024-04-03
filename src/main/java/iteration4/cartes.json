@@ -1,5 +1,5 @@
 {
-  "cartes_chance": [
+  "chance": [
     "Avancez jusqu'à la case Départ. Recevez €200.",
     "Payez une amende de €50 ou piochez une carte 'Caisse de Communauté'.",
     "Reculez de trois cases.",
@@ -11,7 +11,7 @@
     "Allez directement à la case Gare et si elle n'est pas achetée, vous pouvez l'acheter.",
     "Recevez €25 d'honoraires de consultation."
   ],
-  "cartes_caisse_communaute": [
+  "communaute": [
     "Allez en prison. Avancez tout droit en prison. Ne passez pas par la case Départ. Ne touchez pas €200.",
     "Payez l'hôpital €100.",
     "Recevez une carte de crédit de fidélité. Recevez €50.",

@@ -15,7 +15,9 @@ public class Game {
     private ArrayList<Joueur> listeJoueur;
     private int compteurTours = 1;
     private ArrayList<Case> plateau;
+    private ArrayList<Carte> cartes;
     De des[] = new De[2];
+    
 
     public Game(int nbTours, int nbJoueurs) {
         this.nbTours = nbTours;
@@ -35,6 +37,44 @@ public class Game {
     public ArrayList<Case> getPlateau() {
         return plateau;
     }
+
+/*
+ * Créer les cartes du jeu a partir d'un fichier JSON
+ * les type sont : Chance, Caisse de communauté
+ * chaque carte a une description
+ */
+    public void createCartes() {
+        this.cartes = new ArrayList<Carte>();
+
+        try {
+            // Créer un objet JSONParser pour lire le fichier JSON
+            JSONParser parser = new JSONParser();
+
+            // Lire le fichier JSON
+            Object obj = parser.parse(new FileReader("./cartes.json"));
+
+            // Convertir l'objet JSON en JSONObject
+            JSONArray jsonArray = (JSONArray) obj;
+
+            // Parcourir le JSONArray et créer les cartes correspondantes
+            for (Object o : jsonArray) {
+                JSONObject node = (JSONObject) o;
+
+                String type = (String) node.get("type");
+                String description = (String) node.get("description");
+
+                Carte nouvelleCarte = new Carte(type, description);
+
+                this.cartes.add(nouvelleCarte);
+            }
+        } catch (IOException | org.json.simple.parser.ParseException e) {
+            e.printStackTrace();
+
+
+        }
+    }
+       
+
 
     public void createPlateau() {
         this.plateau = new ArrayList<Case>();

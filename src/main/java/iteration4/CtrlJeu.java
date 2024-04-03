@@ -39,7 +39,7 @@ public class CtrlJeu {
     }
 
     public void setPlateau() {
-        game.setPlateau();
+        game.createPlateau();
     }
 
     public void createDes() {
