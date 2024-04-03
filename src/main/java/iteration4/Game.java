@@ -55,16 +55,15 @@ public class Game {
                 JSONObject node = (JSONObject) o;
 
                 String type = (String) node.get("type");
-                int position = ((Long) node.get("position")).intValue();
                 String nom = (String) node.get("nom");
 
                 Case nouvelleCase = null;
 
                 if (type.equals("Speciale")) {
-                    nouvelleCase = new CaseSpeciale(position, type, nom);
-                } else if (type.equals("Propriete")) {
+                    nouvelleCase = new CaseSpeciale(type, nom);
+                } else {
                     int prix = ((Long) node.get("prix")).intValue();
-                    nouvelleCase = new CasePropriete(position, type, nom, prix);
+                    nouvelleCase = new CasePropriete(type, nom, prix);
                 }
 
                 if (nouvelleCase != null) {

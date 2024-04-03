@@ -60,7 +60,7 @@ public class Joueur {
     public String afficherProprietes() {
         String listeProprietes = "";
         for (CasePropriete propriete : this.listeProprietes) {
-            listeProprietes += "Type de propriété : " + propriete.getType() + ", Position : " + propriete.getPosition() + ", Loyer : " + propriete.getLoyer() + "\n";
+            listeProprietes += "Nom : " + propriete.getNom() + ", Loyer : " + propriete.getLoyer() + "\n";
         }
         return listeProprietes;
     }

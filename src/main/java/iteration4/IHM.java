@@ -20,8 +20,8 @@ public class IHM {
         System.out.println("Combien de joueurs ?");
         nbJoueurs = scanner.nextInt();
 
-        CtrlJeu ctrlJeu = new CtrlJeu();
-        ctrlJeu.createGame(nbToursMax, nbJoueurs);
+        CtrlJeu ctrlJeu = new CtrlJeu(nbToursMax, nbJoueurs);
+        System.out.println("LE PLATEAU : " + ctrlJeu.getPlateau());
 
         while (ctrlJeu.getCompteurTours() < ctrlJeu.getNbTours()+1 && ctrlJeu.getListeJoueur().size() > 1){
             for (Joueur joueur : ctrlJeu.getListeJoueur()) {
@@ -30,7 +30,7 @@ public class IHM {
                                 + " ---------------------\n");
                 caseCourante = ctrlJeu.getPlateau().get(joueur.getPosition());
                 System.out.println(
-                        joueur.getPseudo() + " est sur la case " + caseCourante.getPosition());
+                        joueur.getPseudo() + " est sur la case " + caseCourante.getNom());
                 System.out.println("Argent de " + joueur.getPseudo() + " : " + joueur.getArgent());
                 System.out
                         .println("Propriétés de " + joueur.getPseudo() + " : \n" + joueur.afficherProprietes() + "\n");

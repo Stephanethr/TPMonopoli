@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 public class CtrlJeu {
     private Game game;
+    int nbToursMax;
+    int nbJoueurs;
 
-    public CtrlJeu() {
-  
+    public CtrlJeu(int nbToursMax, int nbJoueurs) {
+        createGame(nbToursMax, nbJoueurs);
     }
 
     public void createGame(int nbTours, int nbJoueurs) {
@@ -36,14 +38,6 @@ public class CtrlJeu {
 
     public void setCompteurTours(int compteurTours) {
         game.setCompteurTours(compteurTours);
-    }
-
-    public void setPlateau() {
-        game.setPlateau();
-    }
-
-    public void createDes() {
-        game.createDes();
     }
 
     public void payerLoyer(Joueur joueur, CasePropriete propriete, int totalDe) {
