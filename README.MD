@@ -9,7 +9,6 @@ Ce projet est une implémentation en Java du jeu de société classique Monopoly
 - Jeu multijoueur en local.
 - Plateau de jeu classique avec toutes les propriétés, les chances, et les caisses de communauté.
 - Gestion des transactions, y compris l'achat de propriétés, le paiement des loyers et des taxes.
-- Possibilité d'hypothéquer des propriétés.
 - Gestion des cartes Chance et Caisse de Communauté.
 - Prise en charge de la prison, y compris aller en prison, payer pour sortir.
 
