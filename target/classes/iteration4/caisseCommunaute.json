@@ -1,42 +1,104 @@
 [
   {
     "type": "Caisse de Communauté",
-    "description": "Allez en prison. Avancez tout droit en prison. Ne passez pas par la case Départ. Ne touchez pas $200."
+    "description": "Allez en prison. Avancez tout droit en prison. Ne passez pas par la case Départ. Ne touchez pas 200 €.",
+    "action": [
+      {
+        "type": "move",
+        "destination": "Prison"
+      }
+    ]
   },
   {
     "type": "Caisse de Communauté",
-    "description": "Payez l'hôpital $100."
+    "description": "Payez l'hôpital 100 €.",
+    "action": [
+      {
+        "type": "debit",
+        "amount": 100
+      }
+    ]
   },
   {
     "type": "Caisse de Communauté",
-    "description": "Recevez une carte de crédit de fidélité. Recevez $50."
+    "description": "Recevez une carte de crédit de fidélité. Recevez 50 €.",
+    "action": [
+      {
+        "type": "credit",
+        "amount": 50
+      }
+    ]
   },
   {
     "type": "Caisse de Communauté",
-    "description": "Erreur de banque en votre faveur. Recevez $200."
+    "description": "Erreur de banque en votre faveur. Recevez 200 €.",
+    "action": [
+      {
+        "type": "credit",
+        "amount": 200
+      }
+    ]
   },
   {
     "type": "Caisse de Communauté",
-    "description": "Vous héritez de $100."
+    "description": "Vous héritez de 100 €.",
+    "action": [
+      {
+        "type": "credit",
+        "amount": 100
+      }
+    ]
   },
   {
     "type": "Caisse de Communauté",
-    "description": "Anniversaire. Recevez $10 de chaque joueur."
+    "description": "Anniversaire. Recevez 10 € de chaque joueur.",
+    "action": [
+      {
+        "type": "credit",
+        "amount": 10,
+        "from": "all"
+      }
+    ]
   },
   {
     "type": "Caisse de Communauté",
-    "description": "Recevez une indemnité de départ de $100."
+    "description": "Recevez une indemnité de départ de 100 €.",
+    "action": [
+      {
+        "type": "credit",
+        "amount": 100
+      }
+    ]
   },
   {
     "type": "Caisse de Communauté",
-    "description": "Payez votre assurance habitation. $50."
+    "description": "Payez votre assurance habitation. 50 €.",
+    "action": [
+      {
+        "type": "debit",
+        "amount": 50
+      }
+    ]
   },
   {
     "type": "Caisse de Communauté",
-    "description": "Vous êtes élu président du comité. Payez à chaque joueur $50."
+    "description": "Vous êtes élu président du comité. Payez à chaque joueur 50 €.",
+    "action": [
+      {
+        "type": "debit",
+        "amount": 50,
+        "to": "all"
+      }
+    ]
   },
   {
     "type": "Caisse de Communauté",
-    "description": "Payer l'école $50 pour les frais de scolarité."
+    "description": "Payer l'école 50 € pour les frais de scolarité.",
+    "action": [
+      {
+        "type": "debit",
+        "amount": 50
+      }
+    ]
   }
 ]

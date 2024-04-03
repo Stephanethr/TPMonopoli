@@ -44,45 +44,48 @@ public class Game {
      * chaque carte a une description
      */
     public void createCartes() {
-        this.chance = new ArrayList<Carte>();
-        this.caisseCommunaute = new ArrayList<Carte>();
+        this.chance = new ArrayList<>();
+        this.caisseCommunaute = new ArrayList<>();
+
+        JSONParser parser = new JSONParser();
+
+        // Chemins des fichiers JSON pour les cartes Chance et Caisse de Communauté
+        String cheminChance = System.getProperty("user.dir") + "/src/main/java/iteration4/chance.json";
+        String cheminCaisseCommunaute = System.getProperty("user.dir")
+                + "/src/main/java/iteration4/caisseCommunaute.json";
 
         try {
-            // Créer un objet JSONParser pour lire le fichier JSON
-            JSONParser parser = new JSONParser();
-            String cheminChance = System.getProperty("user.dir") + "/src/main/java/iteration4/chance.json";
-            String cheminCaisseCommunaute = System.getProperty("user.dir") + "/src/main/java/iteration4/caisseCommunaute.json";
+            JSONArray jsonArrayChance = (JSONArray) parser.parse(new FileReader(cheminChance));
+            JSONArray jsonArrayCaisseCommunaute = (JSONArray) parser.parse(new FileReader(cheminCaisseCommunaute));
 
-            // Lire le fichier JSON
-            Object objChance = parser.parse(new FileReader(cheminChance));
-            Object objCaisseCommunaute = parser.parse(new FileReader(cheminCaisseCommunaute));
-
-            // Convertir l'objet JSON en JSONObject
-            JSONArray jsonArrayChance = (JSONArray) objChance;
-            JSONArray jsonArrayCaisseCommunaute = (JSONArray) objCaisseCommunaute;
-
-            // Parcourir le JSONArray et créer les cartes correspondantes
-            for (Object o : jsonArrayChance) {
-                JSONObject node = (JSONObject) o;
-
-                String type = (String) node.get("type");
-                String description = (String) node.get("description");
-
-                Carte nouvelleCarte = new Carte(type, description);
-                this.chance.add(nouvelleCarte);
-            }
-
-            for (Object o : jsonArrayCaisseCommunaute) {
-                JSONObject node = (JSONObject) o;
-
-                String type = (String) node.get("type");
-                String description = (String) node.get("description");
-
-                Carte nouvelleCarte = new Carte(type, description);
-                this.caisseCommunaute.add(nouvelleCarte);
-            }
+            // Méthode de création des cartes pour les deux types
+            createCartesFromJson(jsonArrayChance, this.chance);
+            createCartesFromJson(jsonArrayCaisseCommunaute, this.caisseCommunaute);
         } catch (IOException | org.json.simple.parser.ParseException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void createCartesFromJson(JSONArray jsonArray, ArrayList<Carte> listeCartes) {
+        for (Object o : jsonArray) {
+            JSONObject node = (JSONObject) o;
+            String type = (String) node.get("type");
+            String description = (String) node.get("description");
+            JSONArray actionsJson = (JSONArray) node.get("action");
+
+            ArrayList<Action> actions = new ArrayList<>();
+            for (Object actionObj : actionsJson) {
+                JSONObject actionNode = (JSONObject) actionObj;
+                Action action = new Action(
+                        (String) actionNode.get("type"),
+                        (String) actionNode.getOrDefault("destination", null),
+                        actionNode.get("amount") != null ? ((Long) actionNode.get("amount")).intValue() : null,
+                        (String) actionNode.getOrDefault("deck", null));
+                actions.add(action);
+            }
+
+            Carte nouvelleCarte = new Carte(type, description, actions);
+            listeCartes.add(nouvelleCarte);
         }
     }
 

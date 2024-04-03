@@ -1,13 +1,12 @@
 package iteration4;
 
-import java.util.Random;
 
 public class CasePropriete extends Case {
 
     private int prix;
     private int loyer;
     private Joueur proprietaire;
-    private static Random random = new Random();
+   
 
     public CasePropriete(String type, String nom, int prix) {
         super(type, nom);

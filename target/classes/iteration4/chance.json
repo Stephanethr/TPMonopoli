@@ -1,42 +1,107 @@
 [
   {
     "type": "Chance",
-    "description": "Avancez jusqu'à la case Départ. Recevez $200."
+    "description": "Avancez jusqu'à la case Départ. Recevez 200 €.",
+    "action": [
+      {
+        "type": "move",
+        "destination": "Départ"
+      }
+    ]
   },
   {
     "type": "Chance",
-    "description": "Payez une amende de $50 ou piochez une carte 'Caisse de Communauté'."
+    "description": "Payez une amende de 50 € ou piochez une carte 'Caisse de Communauté'.",
+    "action": [
+      {
+        "type": "debit",
+        "amount": 50
+      },
+      {
+        "type": "pioche",
+        "deck": "Caisse de Communauté"
+      }
+    ]
   },
   {
     "type": "Chance",
-    "description": "Reculez de trois cases."
+    "description": "Reculez de trois cases.",
+    "action": [
+      {
+        "type": "move",
+        "destination": "recule",
+        "count": 3
+      }
+    ]
   },
   {
     "type": "Chance",
-    "description": "Recevez un bonus de $100 pour avoir gagné un concours de beauté."
+    "description": "Recevez un bonus de 100 € pour avoir gagné un concours de beauté.",
+    "action": [
+      {
+        "type": "credit",
+        "amount": 100
+      }
+    ]
   },
   {
     "type": "Chance",
-    "description": "Allez en prison. Avancez tout droit en prison. Ne passez pas par la case Départ. Ne touchez pas $200."
+    "description": "Allez en prison. Avancez tout droit en prison. Ne passez pas par la case Départ. Ne touchez pas 200 €.",
+    "action": [
+      {
+        "type": "move",
+        "destination": "Prison"
+      }
+    ]
   },
   {
     "type": "Chance",
-    "description": "Recevez un remboursement d'impôt de $20."
+    "description": "Recevez un remboursement d'impôt de 20 €.",
+    "action": [
+      {
+        "type": "credit",
+        "amount": 20
+      }
+    ]
   },
   {
     "type": "Chance",
-    "description": "Recevez une amende pour excès de vitesse. Payez $15."
+    "description": "Recevez une amende pour excès de vitesse. Payez 15 €.",
+    "action": [
+      {
+        "type": "debit",
+        "amount": 15
+      }
+    ]
   },
   {
     "type": "Chance",
-    "description": "Recevez $50 pour avoir vendu des actions."
+    "description": "Recevez 50 € pour avoir vendu des actions.",
+    "action": [
+      {
+        "type": "credit",
+        "amount": 50
+      }
+    ]
   },
   {
     "type": "Chance",
-    "description": "Allez directement à la case Gare et si elle n'est pas achetée, vous pouvez l'acheter."
+    "description": "Allez directement à la case Gare et si elle n'est pas achetée, vous pouvez l'acheter.",
+    "action": [
+      {
+        "type": "move",
+        "destination": "Gare"
+      }
+    ]
   },
   {
     "type": "Chance",
-    "description": "Recevez $25 d'honoraires de consultation."
+    "description": "Recevez 25 € d'honoraires de consultation.",
+    "action": [
+      {
+        "type": "credit",
+        "amount": 25
+      }
+    ]
   }
 ]
