@@ -39,7 +39,11 @@ public class Joueur {
     }
 
     public void setArgent(int argent) {
-        this.argent = argent;
+        if (argent < 0) {
+            this.argent = 0;
+        } else {
+            this.argent = argent;
+        }
     }
 
     public void gagnerArgent(int montant) {
