@@ -9,23 +9,10 @@ public class CasePropriete extends Case {
     private Joueur proprietaire;
     private static Random random = new Random();
 
-    public CasePropriete(int position, String type) {
-        super(position, type);
-        this.prix = random.nextInt(400) + 30;
-        this.loyer = prix / 10;
-        this.proprietaire = null;
-    }
-    public CasePropriete(int position, String type, int prix) {
-        super(position, type);
+    public CasePropriete(int position, String type, String nom, int prix) {
+        super(position, type, nom);
         this.prix = prix;
         this.loyer = prix / 10;
-        this.proprietaire = null;
-    }
-
-    public CasePropriete(int position, String type, int prix, int loyer) {
-        super(position, type);
-        this.prix = prix;
-        this.loyer = loyer;
         this.proprietaire = null;
     }
 

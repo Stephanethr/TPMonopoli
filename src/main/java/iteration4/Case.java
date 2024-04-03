@@ -2,12 +2,14 @@ package iteration4;
 
 public abstract class Case {
     private int position;
-    private String type;    
+    private String type;
+    private String nom;
     
     // Constructeur
-    public Case(int position, String type) {
+    public Case(int position, String type, String nom) {
         this.position = position;
         this.type = type;
+        this.nom = nom;
     }
     
     // Méthodes pour accéder et modifier les attributs (getters/setters)

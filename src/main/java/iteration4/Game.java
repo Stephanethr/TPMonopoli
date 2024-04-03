@@ -1,6 +1,10 @@
 package iteration4;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Game
@@ -15,7 +19,7 @@ public class Game {
     public Game(int nbTours, int nbJoueurs) {
         this.nbTours = nbTours;
         setListJoueurs(nbJoueurs);
-        setPlateau();
+        createPlateau();
         createDes();
     }
 
@@ -31,22 +35,42 @@ public class Game {
         return plateau;
     }
 
-    public void setPlateau() {
+    public void createPlateau() {
         this.plateau = new ArrayList<Case>();
-        while (plateau.size() < 40) {
-            plateau.add(new CasePropriete(plateau.size(), "Propriete"));
-        }
-        // Cases départ
-        this.plateau.set(0, new CaseSpeciale(0, "Depart"));
-        // Cases Gare
-        this.plateau.set(5, new CasePropriete(5, "Gare", 250));
-        this.plateau.set(15, new CasePropriete(15, "Gare", 250));
-        this.plateau.set(25, new CasePropriete(25, "Gare", 250));
-        this.plateau.set(35, new CasePropriete(35, "Gare", 250));
 
-        // Cases compagnie
-        this.plateau.set(12, new CasePropriete(12, "Compagnie", 250));
-        this.plateau.set(28, new CasePropriete(28, "Compagnie", 250));
+        try {
+            // Créer un ObjectMapper (objet de Jackson pour la conversion JSON)
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            // Lire le fichier JSON et le mapper vers un JsonNode
+            JsonNode jsonNode = objectMapper.readTree(new File("./plateau.json"));
+
+            // Parcourir le JSON et créer les cases correspondantes
+            for (JsonNode node : jsonNode) {
+                String type = node.get("type").asText();
+                int position = node.get("position").asInt();
+                String nom = node.get("nom").asText();
+                Case nouvelleCase = null;
+
+                if (type.equals("Speciale")) {
+                    nouvelleCase = new CaseSpeciale(position, type, nom);
+                    this.plateau.add(nouvelleCase);
+                    continue;
+                }
+                else{
+                    nom = node.get("nom").asText();
+                    prix = node.get("prix").asInt();
+                    nouvelleCase = new CasePropriete(position, type, nom, prix);
+                    break;
+                }
+
+                if (nouvelleCase != null) {
+                    this.plateau.add(nouvelleCase);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getNbTours() {
