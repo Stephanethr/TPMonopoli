@@ -226,10 +226,13 @@ public class Game {
     }
 
     public De[] getDes() {
-        for (int i = 0; i < des.length; i++) {
-            des[i].lancer();
-        }
         return des;
+    }
+
+    public void lancerDes() {
+        for (int i = 0; i < des.length; i++) {
+            des[i].lancerTest();
+        }
     }
 
     public Joueur getJoueurGagnant() {
@@ -247,4 +250,15 @@ public class Game {
         throw new UnsupportedOperationException("Unimplemented method 'actionCarte'");
     }
 
+    public boolean isGameOver() {
+        return (compteurTours > nbTours || listeJoueur.size() <= 1);
+    }
+
+    public void incrementerCompteurTours() {
+        compteurTours++;
+    }
+
+    public Case getCaseCourante(Joueur joueur) {
+        return plateau.get(joueur.getPosition());
+    }
 }
