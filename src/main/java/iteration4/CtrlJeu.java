@@ -50,6 +50,10 @@ public class CtrlJeu {
         return game.tirerCarteCaisseCommunaute();
     }
 
+    public String actionCarte(Carte carte, Joueur joueur) {
+        return game.actionCarte(carte, joueur);
+    }
+
    
     
 

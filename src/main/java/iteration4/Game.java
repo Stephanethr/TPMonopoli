@@ -117,7 +117,7 @@ public class Game {
         String message = "";
         for (Action action : carte.getActions()) {
             switch (action.getType()) {
-                case "gain":
+                case "credit":
                     joueur.gagnerArgent(action.getAmount());
                     message += carte.getDescription() + "\n";
                     break;
@@ -126,17 +126,23 @@ public class Game {
                     message += carte.getDescription() + "\n";
                     break;
                 case "move":
-                    if (action.getDestination() == "reculer") {
-                        joueur.setPosition(joueur.getPosition() - Integer.parseInt(action.getDestination()));
-                        message += carte.getDescription() + "\n";
-                        break;
-                        
-                    }
-                    else{
-                        joueur.setPosition(Integer.parseInt(action.getDestination()));
-                        message += carte.getDescription() + "\n";
-                        break;
-
+                    switch (action.getDestination()) {
+                        case "recule":
+                            joueur.deplacement(-action.getAmount());
+                            message += carte.getDescription() + "\n";                            
+                            break;
+                        case "Départ":
+                            joueur.setPosition(0);
+                            joueur.gagnerArgent(200);
+                            message += carte.getDescription() + "\n";
+                            break;
+                        case "Prison":
+                            joueur.setPosition(10);
+                            message += carte.getDescription() + "\n";
+                            break;
+                    
+                        default:
+                            break;
                     }
                     
                 case "pioche":
