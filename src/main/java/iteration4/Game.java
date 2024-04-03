@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
 /**
  * Game
  */
@@ -67,28 +68,34 @@ public class Game {
         }
     }
 
-    private void createCartesFromJson(JSONArray jsonArray, ArrayList<Carte> listeCartes) {
-        for (Object o : jsonArray) {
-            JSONObject node = (JSONObject) o;
-            String type = (String) node.get("type");
-            String description = (String) node.get("description");
-            JSONArray actionsJson = (JSONArray) node.get("action");
+  private void createCartesFromJson(JSONArray jsonArray, ArrayList<Carte> listeCartes) {
+    for (Object o : jsonArray) {
+        JSONObject node = (JSONObject) o;
+        String type = (String) node.get("type");
+        String description = (String) node.get("description");
+        JSONArray actionsJson = (JSONArray) node.get("action");
 
-            ArrayList<Action> actions = new ArrayList<>();
-            for (Object actionObj : actionsJson) {
-                JSONObject actionNode = (JSONObject) actionObj;
-                Action action = new Action(
-                        (String) actionNode.get("type"),
-                        (String) actionNode.getOrDefault("destination", null),
-                        actionNode.get("amount") != null ? ((Long) actionNode.get("amount")).intValue() : null,
-                        (String) actionNode.getOrDefault("deck", null));
-                actions.add(action);
-            }
+        ArrayList<Action> actions = new ArrayList<>();
+        for (Object actionObj : actionsJson) {
+            JSONObject actionNode = (JSONObject) actionObj;
 
-            Carte nouvelleCarte = new Carte(type, description, actions);
-            listeCartes.add(nouvelleCarte);
+            // Utilisation de get() et de gestion manuelle des valeurs null
+            String actionType = (String) actionNode.get("type");
+            String destination = actionNode.get("destination") != null ? (String) actionNode.get("destination") : null;
+            Integer amount = actionNode.get("amount") != null ? ((Long) actionNode.get("amount")).intValue() : null;
+            String deck = actionNode.get("deck") != null ? (String) actionNode.get("deck") : null;
+            String from = actionNode.get("from") != null ? (String) actionNode.get("from") : null;
+            String to = actionNode.get("to") != null ? (String) actionNode.get("to") : null;
+
+            Action action = new Action(actionType, destination, amount, deck, from, to);
+            actions.add(action);
         }
+
+        Carte nouvelleCarte = new Carte(type, description, actions);
+        listeCartes.add(nouvelleCarte);
     }
+}
+
 
     public ArrayList<Carte> getChance() {
         return chance;
@@ -97,7 +104,6 @@ public class Game {
     public ArrayList<Carte> getCaisseCommunaute() {
         return caisseCommunaute;
     }
-   
 
     // Fonction qui permet de tirer une carte chance aléatoirement
     public Carte tirerCarteChance() {
@@ -113,41 +119,67 @@ public class Game {
         return carte;
     }
 
-    public String actionCarte(Carte carte, Joueur joueur) {
+    public String actionCarte(Carte carte, Joueur joueur, ArrayList<Joueur> listeJoueur) {
         String message = "";
+
         for (Action action : carte.getActions()) {
             switch (action.getType()) {
-                case "gain":
+
+                case "credit":
+                    if (action.getFrom() != null) {
+                        for (Joueur j : listeJoueur) {
+                            j.payer(action.getAmount());
+                        }
+
+                    }
+                    else{
+                        joueur.gagnerArgent(action.getAmount());
+                    }
                     joueur.gagnerArgent(action.getAmount());
                     message += carte.getDescription() + "\n";
                     break;
-                case "perte":
+
+                case "debit":
+
+                    if (action.getTo() != null) {
+                        for (Joueur j : listeJoueur) {
+                            j.gagnerArgent(action.getAmount());
+                        }
+                    }
                     joueur.payer(action.getAmount());
+                    
                     message += carte.getDescription() + "\n";
                     break;
-                case "move":
-                    if (action.getDestination() == "reculer") {
-                        joueur.setPosition(joueur.getPosition() - Integer.parseInt(action.getDestination()));
-                        message += carte.getDescription() + "\n";
-                        break;
-                        
-                    }
-                    else{
-                        joueur.setPosition(Integer.parseInt(action.getDestination()));
-                        message += carte.getDescription() + "\n";
-                        break;
 
+                case "move":
+                    switch (action.getDestination()) {
+                        case "recule":
+                            joueur.deplacement(-action.getAmount());
+                            message += carte.getDescription() + "\n";
+                            break;
+                        case "Départ":
+                            joueur.setPosition(0);
+                            joueur.gagnerArgent(200);
+                            message += carte.getDescription() + "\n";
+                            break;
+                        case "Prison":
+                            joueur.setPosition(10);
+                            message += carte.getDescription() + "\n";
+                            break;
+
+                        default:
+                            break;
                     }
-                    
+
                 case "pioche":
                     if (action.getDeck().equals("chance")) {
                         Carte carteChance = tirerCarteChance();
                         message += carte.getDescription() + "\n";
-                        message += actionCarte(carteChance, joueur);
+                        message += actionCarte(carteChance, joueur, listeJoueur);
                     } else {
                         Carte carteCaisseCommunaute = tirerCarteCaisseCommunaute();
                         message += carte.getDescription() + "\n";
-                        message += actionCarte(carteCaisseCommunaute, joueur);
+                        message += actionCarte(carteCaisseCommunaute, joueur, listeJoueur);
                     }
                     break;
                 default:

@@ -8,13 +8,17 @@ class Action {
     private String destination; // Peut être null pour certains types d'action
     private Integer amount; // Peut être null pour certains types d'action
     private String deck; // Peut être null sauf pour "pioche"
+    private String from;
+    private String to;
 
     // Constructeur
-    public Action(String type, String destination, Integer amount, String deck) {
+    public Action(String type, String destination, Integer amount, String deck, String from, String to) {
         this.type = type;
         this.destination = destination;
         this.amount = amount;
         this.deck = deck;
+        this.from = from;
+        this.to = to;
     }
 
     // Getters et Setters
@@ -28,6 +32,14 @@ class Action {
 
     public String getDestination() {
         return destination;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
     }
 
     public void setDestination(String destination) {
@@ -48,6 +60,14 @@ class Action {
 
     public void setDeck(String deck) {
         this.deck = deck;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
     }
 
     // Méthode toString pour affichage

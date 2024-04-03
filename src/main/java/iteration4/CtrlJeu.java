@@ -48,6 +48,10 @@ public class CtrlJeu {
         joueur.payer(montant);
     }
 
+    public void gagnerArgent(Joueur joueur, int montant) {
+        joueur.gagnerArgent(montant);
+    }
+
     public void payerLoyer(Joueur joueur, CasePropriete propriete, int totalDe) {
         joueur.payerLoyer(propriete, totalDe);
     }
@@ -109,8 +113,14 @@ public class CtrlJeu {
         return game.tirerCarteCaisseCommunaute();
     }
 
+    public String actionCarte(Carte carte, Joueur joueur) {
+        ArrayList<Joueur> listJoueurs = game.getListeJoueur();
+        listJoueurs.remove(joueur);
+        return game.actionCarte(carte, joueur, listJoueurs);
+    }
 
-
+   
+    
 
     // Dés
     public De[] getDes() {
