@@ -110,7 +110,9 @@ public class CtrlJeu {
     }
 
     public String actionCarte(Carte carte, Joueur joueur) {
-        return game.actionCarte(carte, joueur);
+        ArrayList<Joueur> listJoueurs = game.getListeJoueur();
+        listJoueurs.remove(joueur);
+        return game.actionCarte(carte, joueur, listJoueurs);
     }
 
    

@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
 /**
  * Game
  */
@@ -81,7 +82,9 @@ public class Game {
                         (String) actionNode.get("type"),
                         (String) actionNode.getOrDefault("destination", null),
                         actionNode.get("amount") != null ? ((Long) actionNode.get("amount")).intValue() : null,
-                        (String) actionNode.getOrDefault("deck", null));
+                        (String) actionNode.getOrDefault("deck", null),
+                        (String) actionNode.getOrDefault("from", null),
+                        (String) actionNode.getOrDefault("to", null));
                 actions.add(action);
             }
 
@@ -97,7 +100,6 @@ public class Game {
     public ArrayList<Carte> getCaisseCommunaute() {
         return caisseCommunaute;
     }
-   
 
     // Fonction qui permet de tirer une carte chance aléatoirement
     public Carte tirerCarteChance() {
@@ -113,23 +115,43 @@ public class Game {
         return carte;
     }
 
-    public String actionCarte(Carte carte, Joueur joueur) {
+    public String actionCarte(Carte carte, Joueur joueur, ArrayList<Joueur> listeJoueur) {
         String message = "";
+
         for (Action action : carte.getActions()) {
             switch (action.getType()) {
+
                 case "credit":
+                    if (action.getFrom() != null) {
+                        for (Joueur j : listeJoueur) {
+                            j.payer(action.getAmount());
+                        }
+
+                    }
+                    else{
+                        joueur.gagnerArgent(action.getAmount());
+                    }
                     joueur.gagnerArgent(action.getAmount());
                     message += carte.getDescription() + "\n";
                     break;
-                case "perte":
+
+                case "debit":
+
+                    if (action.getTo() != null) {
+                        for (Joueur j : listeJoueur) {
+                            j.gagnerArgent(action.getAmount());
+                        }
+                    }
                     joueur.payer(action.getAmount());
+                    
                     message += carte.getDescription() + "\n";
                     break;
+
                 case "move":
                     switch (action.getDestination()) {
                         case "recule":
                             joueur.deplacement(-action.getAmount());
-                            message += carte.getDescription() + "\n";                            
+                            message += carte.getDescription() + "\n";
                             break;
                         case "Départ":
                             joueur.setPosition(0);
@@ -140,20 +162,20 @@ public class Game {
                             joueur.setPosition(10);
                             message += carte.getDescription() + "\n";
                             break;
-                    
+
                         default:
                             break;
                     }
-                    
+
                 case "pioche":
                     if (action.getDeck().equals("chance")) {
                         Carte carteChance = tirerCarteChance();
                         message += carte.getDescription() + "\n";
-                        message += actionCarte(carteChance, joueur);
+                        message += actionCarte(carteChance, joueur, listeJoueur);
                     } else {
                         Carte carteCaisseCommunaute = tirerCarteCaisseCommunaute();
                         message += carte.getDescription() + "\n";
-                        message += actionCarte(carteCaisseCommunaute, joueur);
+                        message += actionCarte(carteCaisseCommunaute, joueur, listeJoueur);
                     }
                     break;
                 default:
