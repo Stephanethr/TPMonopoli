@@ -127,7 +127,8 @@ public class Game {
                 if (type.equals("Speciale")) {
                     nouvelleCase = new CaseSpeciale(type, nom);
                 } else {
-                    int prix = ((Long) node.get("prix")).intValue();
+                    int prix = (node.get("prix") == null ? 0 : ((Long) node.get("prix")).intValue());
+
                     nouvelleCase = new CasePropriete(type, nom, prix);
                 }
 
