@@ -42,7 +42,7 @@ Le projet est structuré comme suit :
 
 - `src/main/java/iteration4`: Contient le code source du jeu.
 - `src/test/java/iteration4`: Contient les tests unitaires du projet.
-  ven.
+ 
 - `diagram`: Contient les diagrammes UML des différentes itérations du projet.
 - `document` : contient le raport ainssi que la présentation du projet
 
