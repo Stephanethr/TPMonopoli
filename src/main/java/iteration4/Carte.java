@@ -43,7 +43,7 @@ public class Carte {
 
     @Override
     public String toString() {
-        return "\nCarte [type=" + type + ", description=" + description + ", actions=" + actions + "]\n";
+        return "Carte [type=" + type + ", description=" + description + ", actions=" + actions + "]\n";
     }
     // Méthode pour ajouter une action à la liste
     public void addAction(Action action) {

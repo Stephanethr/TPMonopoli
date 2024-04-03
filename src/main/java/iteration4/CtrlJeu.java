@@ -32,6 +32,8 @@ public class CtrlJeu {
         return game.getPlateau();
     }
 
+    // Cartes
+
     public ArrayList<Carte> getChance() {
         return game.getChance();
     }
@@ -43,6 +45,15 @@ public class CtrlJeu {
     public Carte piocherCarteChance() {
         return game.tirerCarteChance();
     }
+
+    public Carte piocherCarteCaisseCommunaute() {
+        return game.tirerCarteCaisseCommunaute();
+    }
+
+   
+    
+
+    // Dés
 
     public De[] getDes() {
         return game.getDes();
@@ -67,4 +78,6 @@ public class CtrlJeu {
     public Joueur getJoueurGagnant() {
         return game.getJoueurGagnant();
     }
+
+    
 }

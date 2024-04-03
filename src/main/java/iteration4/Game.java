@@ -17,6 +17,7 @@ public class Game {
     private ArrayList<Carte> chance;
     private ArrayList<Carte> caisseCommunaute;
     De des[] = new De[2];
+    public Object carte;
 
     public Game(int nbTours, int nbJoueurs) {
         this.nbTours = nbTours;
@@ -96,7 +97,6 @@ public class Game {
     public ArrayList<Carte> getCaisseCommunaute() {
         return caisseCommunaute;
     }
-
    
 
     // Fonction qui permet de tirer une carte chance aléatoirement
@@ -111,6 +111,50 @@ public class Game {
         int index = (int) (Math.random() * caisseCommunaute.size());
         Carte carte = caisseCommunaute.get(index);
         return carte;
+    }
+
+    public String actionCarte(Carte carte, Joueur joueur) {
+        String message = "";
+        for (Action action : carte.getActions()) {
+            switch (action.getType()) {
+                case "gain":
+                    joueur.gagnerArgent(action.getAmount());
+                    message += carte.getDescription() + "\n";
+                    break;
+                case "perte":
+                    joueur.payer(action.getAmount());
+                    message += carte.getDescription() + "\n";
+                    break;
+                case "move":
+                    if (action.getDestination() == "reculer") {
+                        joueur.setPosition(joueur.getPosition() - Integer.parseInt(action.getDestination()));
+                        message += carte.getDescription() + "\n";
+                        break;
+                        
+                    }
+                    else{
+                        joueur.setPosition(Integer.parseInt(action.getDestination()));
+                        message += carte.getDescription() + "\n";
+                        break;
+
+                    }
+                    
+                case "pioche":
+                    if (action.getDeck().equals("chance")) {
+                        Carte carteChance = tirerCarteChance();
+                        message += carte.getDescription() + "\n";
+                        message += actionCarte(carteChance, joueur);
+                    } else {
+                        Carte carteCaisseCommunaute = tirerCarteCaisseCommunaute();
+                        message += carte.getDescription() + "\n";
+                        message += actionCarte(carteCaisseCommunaute, joueur);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        return message;
     }
 
     public void createPlateau() {
@@ -190,6 +234,11 @@ public class Game {
             }
         }
         return joueurGagnant;
+    }
+
+    public void actionCarte(Carte carte) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actionCarte'");
     }
 
 }
