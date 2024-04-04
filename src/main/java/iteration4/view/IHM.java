@@ -1,9 +1,9 @@
-package iteration4.vue;
+package iteration4.view;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import iteration4.controleur.CtrlJeu;
+import iteration4.controller.CtrlJeu;
 import iteration4.model.Carte;
 import iteration4.model.Case;
 import iteration4.model.CasePropriete;
@@ -40,8 +40,8 @@ public class IHM {
     }
 
     System.out.println("La partie est terminée !");
-    System.out.println("Le joueur gagnant est : " + ctrlJeu.getJoueurGagnant().getPseudo());
-    System.out.println(ctrlJeu.getPlateau());
+    System.out.println("Le joueur gagnant est : " + ctrlJeu.getJoueurGagnant().getPseudo() + " avec " + ctrlJeu.getArgent(ctrlJeu.getJoueurGagnant()) + "€");
+    System.out.println("FIN DU JEU");
 
     scanner.close();
 }
@@ -72,6 +72,18 @@ public class IHM {
             ctrlJeu.lancerDes();
             int totalDe = ctrlJeu.totalDes();
             System.out.println("Valeur des dés : " + ctrlJeu.getDes()[0].getValue() + " et " + ctrlJeu.getDes()[1].getValue());
+
+            doubleDice = ctrlJeu.isDouble(ctrlJeu.getDes()[0].getValue(), ctrlJeu.getDes()[1].getValue());
+            if (doubleDice && !ctrlJeu.getEnPrison(joueur)){
+                countDoubles++;
+                if (countDoubles == 3) {
+                    System.out.println("Vous avez fait 3 doubles de suite. Vous allez en prison.");
+                    ctrlJeu.allerEnPrison(joueur); // Mettre le joueur en prison
+                    return; // Quitter la méthode playNormalTurn
+                } else {
+                    System.out.println("Vous avez fait un double ! Vous pourrez relancer les dés.");
+                }
+            }
             System.out.println(pseudo + " a fait " + totalDe);
 
             ctrlJeu.deplacement(joueur, totalDe);
@@ -86,52 +98,45 @@ public class IHM {
                 handleSpecialAction(ctrlJeu, joueur, (CaseSpeciale)caseCourante);
             }
 
-            doubleDice = ctrlJeu.isDouble(ctrlJeu.getDes()[0].getValue(), ctrlJeu.getDes()[1].getValue());
-            if (doubleDice) {
-                countDoubles++;
-                if (countDoubles == 3) {
-                    System.out.println("Vous avez fait 3 doubles de suite. Vous allez en prison.");
-                    ctrlJeu.allerEnPrison(joueur); // Mettre le joueur en prison
-                    return; // Quitter la méthode playNormalTurn
-                } else {
-                    System.out.println("Vous avez fait un double ! Vous pouvez rejouer.");
-                }
-            }
-        } while (doubleDice);
+        } while (doubleDice && !ctrlJeu.getEnPrison(joueur));
     }
 
     private void playInJail(CtrlJeu ctrlJeu, Joueur joueur) {
         String pseudo = ctrlJeu.getPseudo(joueur);
         System.out.println("Vous êtes en prison !");
 
-        for (int i = 0; i < 3; i++) {
-            System.out.println("Vous avez " + (3 - i) + " tours restants pour faire un double et sortir de prison.");
-            System.out.println("Appuyez sur entrée pour lancer les dés" + "\n");
-            scanner.nextLine();
-            ctrlJeu.lancerDes();
-            int totalDe = ctrlJeu.totalDes();
-            System.out.println("Valeur des dés : " + ctrlJeu.getDes()[0].getValue() + " et " + ctrlJeu.getDes()[1].getValue());
 
-            if (ctrlJeu.isDouble(ctrlJeu.getDes()[0].getValue(), ctrlJeu.getDes()[1].getValue())) {
-                System.out.println("Vous avez fait un double ! Vous sortez de prison et avancez de " + totalDe + " cases.");
+        System.out.println("Vous avez " + (3 - ctrlJeu.getNbToursPrison(joueur)) + " tours restants pour faire un double et sortir de prison.");
+        System.out.println("Appuyez sur entrée pour lancer les dés" + "\n");
+        scanner.nextLine();
+        ctrlJeu.lancerDes();
+        int totalDe = ctrlJeu.totalDes();
+        System.out.println("Valeur des dés : " + ctrlJeu.getDes()[0].getValue() + " et " + ctrlJeu.getDes()[1].getValue());
+
+        if (ctrlJeu.isDouble(ctrlJeu.getDes()[0].getValue(), ctrlJeu.getDes()[1].getValue())) {
+            System.out.println("Vous avez fait un double ! Vous sortez de prison et avancez de " + totalDe + " cases.");
+            ctrlJeu.sortirDePrison(joueur);
+            ctrlJeu.deplacement(joueur, totalDe);
+            Case caseCourante = ctrlJeu.getCaseCourante(joueur);
+            System.out.println(pseudo + " est sur la case " + caseCourante);
+            if (caseCourante instanceof CasePropriete) {
+                handlePropertyAction(ctrlJeu, joueur, (CasePropriete) caseCourante, totalDe);
+            } else {
+                handleSpecialAction(ctrlJeu, joueur, (CaseSpeciale) caseCourante);
+            }
+
+        } else {
+            if (ctrlJeu.getNbToursPrison(joueur) == 3) {
+                System.out.println("Vous avez fait trois tours en prison. Vous devez payer 50€ pour sortir.");
+                System.out.println("Vous devez payer 50€ pour sortir.");
+                ctrlJeu.payer(joueur, 50);
                 ctrlJeu.sortirDePrison(joueur);
-                ctrlJeu.deplacement(joueur, totalDe);
-                Case caseCourante = ctrlJeu.getCaseCourante(joueur);
-                System.out.println(pseudo + " est sur la case " + caseCourante);
-                if (caseCourante instanceof CasePropriete) {
-                    handlePropertyAction(ctrlJeu, joueur, (CasePropriete) caseCourante, totalDe);
-                } else {
-                    handleSpecialAction(ctrlJeu, joueur, (CaseSpeciale) caseCourante);
-                }
-                return;
+            }
+            else {
+                System.out.println("Vous n'avez pas fait de double. Vous restez en prison.");
+                ctrlJeu.incrementerNbToursPrison(joueur);
             }
         }
-
-        System.out.println("Vous n'avez pas fait de double après trois tours en prison.");
-        System.out.println("Vous devez payer 50€ pour sortir.");
-        ctrlJeu.payer(joueur, 50);
-        ctrlJeu.sortirDePrison(joueur);
-        // Case caseCourante = ctrlJeu.getCaseCourante(joueur);
     }
 
     private void handlePropertyAction(CtrlJeu ctrlJeu, Joueur joueur, CasePropriete propriete, int totalDe) {
@@ -166,13 +171,14 @@ public class IHM {
         }
     }
     public void handleSpecialAction(CtrlJeu ctrlJeu, Joueur joueur, CaseSpeciale caseCourante){
-
         switch (ctrlJeu.getNomCase(caseCourante)){
             case "Chance":
+                System.out.println("Vous tirez une carte Chance.");
                 Carte carteChance = ctrlJeu.piocherCarteChance();
                 System.out.println(ctrlJeu.actionCarte(carteChance, joueur));
                 break;
             case "Caisse de Communauté":
+                System.out.println("Vous tirez une carte Caisse de communauté.");
                 Carte carteCaisseCommunaute = ctrlJeu.piocherCarteCaisseCommunaute();
                 System.out.println(ctrlJeu.actionCarte(carteCaisseCommunaute, joueur));
                 break;

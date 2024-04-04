@@ -62,14 +62,14 @@ public class Game {
             JSONArray jsonArrayCaisseCommunaute = (JSONArray) parser.parse(new FileReader(cheminCaisseCommunaute));
 
             // Méthode de création des cartes pour les deux types
-            createCartesFromJson(jsonArrayChance, this.chance);
-            createCartesFromJson(jsonArrayCaisseCommunaute, this.caisseCommunaute);
+            getCartesFromJson(jsonArrayChance, this.chance);
+            getCartesFromJson(jsonArrayCaisseCommunaute, this.caisseCommunaute);
         } catch (IOException | org.json.simple.parser.ParseException e) {
             e.printStackTrace();
         }
     }
 
-    private void createCartesFromJson(JSONArray jsonArray, ArrayList<Carte> listeCartes) {
+    private void getCartesFromJson(JSONArray jsonArray, ArrayList<Carte> listeCartes) {
         for (Object o : jsonArray) {
             JSONObject node = (JSONObject) o;
             String type = (String) node.get("type");

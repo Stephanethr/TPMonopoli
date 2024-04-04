@@ -1,4 +1,4 @@
-package iteration4.controleur;
+package iteration4.controller;
 
 import java.util.ArrayList;
 import iteration4.model.Carte;

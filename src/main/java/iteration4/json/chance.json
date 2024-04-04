@@ -73,7 +73,7 @@
   },
   {
     "type": "Chance",
-    "description": "Allez directement à la case Gare et si elle n'est pas achetée, vous pouvez l'acheter.",
+    "description": "Allez directement à la case Gare.",
     "action": [
       {
         "type": "move",

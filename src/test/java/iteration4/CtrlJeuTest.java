@@ -4,11 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import iteration4.controleur.CtrlJeu;
+import iteration4.controller.CtrlJeu;
 import iteration4.model.CasePropriete;
 import iteration4.model.Joueur;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CtrlJeuTest {
     private CtrlJeu ctrlJeu;
