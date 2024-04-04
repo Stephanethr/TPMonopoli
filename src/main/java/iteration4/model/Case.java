@@ -1,4 +1,4 @@
-package iteration4;
+package iteration4.model;
 
 public abstract class Case {
     private String type;

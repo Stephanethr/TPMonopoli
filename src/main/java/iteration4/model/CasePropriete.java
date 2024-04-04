@@ -1,5 +1,4 @@
-package iteration4;
-
+package iteration4.model;
 
 public class CasePropriete extends Case {
 

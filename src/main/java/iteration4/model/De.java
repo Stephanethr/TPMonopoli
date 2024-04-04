@@ -1,4 +1,4 @@
-package iteration4;
+package iteration4.model;
 
 public class De {
     private int value;

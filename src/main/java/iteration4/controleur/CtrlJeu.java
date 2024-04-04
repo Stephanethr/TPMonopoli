@@ -1,6 +1,12 @@
-package iteration4;
+package iteration4.controleur;
 
 import java.util.ArrayList;
+import iteration4.model.Carte;
+import iteration4.model.Case;
+import iteration4.model.CasePropriete;
+import iteration4.model.De;
+import iteration4.model.Game;
+import iteration4.model.Joueur;
 
 public class CtrlJeu {
     private Game game;

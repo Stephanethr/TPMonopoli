@@ -1,7 +1,14 @@
-package iteration4;
+package iteration4.vue;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import iteration4.controleur.CtrlJeu;
+import iteration4.model.Carte;
+import iteration4.model.Case;
+import iteration4.model.CasePropriete;
+import iteration4.model.CaseSpeciale;
+import iteration4.model.Joueur;
 
 public class IHM {
     private static final Scanner scanner = new Scanner(System.in);

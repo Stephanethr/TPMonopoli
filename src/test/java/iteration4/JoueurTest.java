@@ -2,6 +2,8 @@ package iteration4;
 
 import org.junit.jupiter.api.Test;
 
+import iteration4.model.Joueur;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class JoueurTest {

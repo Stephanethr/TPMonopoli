@@ -1,4 +1,4 @@
-package iteration4;
+package iteration4.model;
 
 // Classe représentant une action individuelle associée à une carte
 class Action {

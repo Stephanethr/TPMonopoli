@@ -1,4 +1,4 @@
-package iteration4;
+package iteration4.model;
 
 import java.util.ArrayList;
 

@@ -1,8 +1,9 @@
-package iteration4;
+package iteration4.model;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,9 +53,9 @@ public class Game {
         JSONParser parser = new JSONParser();
 
         // Chemins des fichiers JSON pour les cartes Chance et Caisse de Communauté
-        String cheminChance = System.getProperty("user.dir") + "/src/main/java/iteration4/chance.json";
+        String cheminChance = System.getProperty("user.dir") + "/src/main/java/iteration4/json/chance.json";
         String cheminCaisseCommunaute = System.getProperty("user.dir")
-                + "/src/main/java/iteration4/caisseCommunaute.json";
+                + "/src/main/java/iteration4/json/caisseCommunaute.json";
 
         try {
             JSONArray jsonArrayChance = (JSONArray) parser.parse(new FileReader(cheminChance));
@@ -190,7 +191,7 @@ public class Game {
         try {
             // Créer un objet JSONParser pour lire le fichier JSON
             JSONParser parser = new JSONParser();
-            String chemin = System.getProperty("user.dir") + "/src/main/java/iteration4/plateau.json";
+            String chemin = System.getProperty("user.dir") + "/src/main/java/iteration4/json/plateau.json";
 
             // Lire le fichier JSON
             Object obj = parser.parse(new FileReader(chemin));
